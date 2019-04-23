@@ -91,7 +91,13 @@ public class Streams {
                 .forEach((p) -> System.out.printf("%s %s %d; ", p.getFirstName(), p.getLastName(), p.getSalary()));
         System.out.println("");
         System.out.println("下面是年龄大于 24岁且月薪在$1,400以上的女PHP程序员:");
-        Predicate<Person> ageFilter = (p) -> p.getAge() > 24;
+//        Predicate<Person> ageFilter = (p) -> p.getAge() > 24;
+        Predicate<Person> ageFilter = new Predicate<Person>() {
+            @Override
+            public boolean test(Person person) {
+                return person.getAge() > 24;
+            }
+        };
         Predicate<Person> salaryFilter = (p) -> p.getSalary() > 1400;
         Predicate<Person> genderFilter = (p) -> "female".equals(p.getGender());
         phpProgrammers.stream().filter(ageFilter).filter(salaryFilter).filter(genderFilter)
