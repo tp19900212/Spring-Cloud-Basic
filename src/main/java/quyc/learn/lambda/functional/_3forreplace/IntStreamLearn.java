@@ -75,10 +75,10 @@ public class IntStreamLearn {
      */
     private static void takeDropWhile() {
         List<Integer> list = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
-        list.stream().dropWhile((x) -> x < 80 ).forEach(System.out::println);
+        list.stream().dropWhile(x -> x < 80 ).forEach(System.out::println);
         System.out.println("");
         List<Integer> list1 = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
-        list1.stream().takeWhile((x) -> x < 80 ).forEach(System.out::println);
+        list1.stream().takeWhile(x -> x < 80 ).forEach(System.out::println);
     }
 
     /**
