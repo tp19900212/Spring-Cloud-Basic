@@ -78,6 +78,8 @@ public class CascadeLambda {
     /**
      * 尽管下面每个 lambda 表达式将输入与一个不同的值比较，但它们做的事情完全相同。如何以较少的重复来重写此代码？
      * <p>
+     * 函数接口 Function<T, U> 将一个 T 类型的输入转换为 U 类型的输出。
+     * <p>
      * Function<Integer, Predicate<Integer>> predicateFunction = pivot -> candidate -> candidate > pivot;
      * 外部 lambda 表达式接收 pivot 作为参数，内部 lambda 表达式接收 candidate 作为参数。
      * 内部 lambda 表达式的主体同时使用它收到的参数 (candidate) 和来自外部范围的参数。
