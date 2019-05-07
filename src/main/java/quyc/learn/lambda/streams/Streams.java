@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by quyuanchao on 2019/4/21 16:49.
@@ -49,7 +50,9 @@ public class Streams {
 //        minOrMax();
 //        collectMap();
 //        parallel();
-        summaryStatistics();
+//        summaryStatistics();
+//        flatMap();
+        groupingBy();
     }
 
     /**
@@ -188,5 +191,37 @@ public class Streams {
         System.out.println("intSummaryStatistics.getMax() = " + intSummaryStatistics.getMax());
         System.out.println("intSummaryStatistics.getMin() = " + intSummaryStatistics.getMin());
         System.out.println("intSummaryStatistics.getSum() = " + intSummaryStatistics.getSum());
+    }
+
+    /**
+     * flatMap()方法通过一个 Function 把一个元素类型为 T 的流中的每个元素转换成一个元素类型为 R 的流，再把这些转换之后的流合并。
+     */
+    public static void flatMap() {
+        Stream.of(1, 2, 3)
+                .map(v -> v + 1)
+                .flatMap(v -> Stream.of(v * 5, v * 10))
+                .forEach(System.out::println);
+        // 输出 10，20，15，30，20，40
+
+        Stream.of(1, 2, 3)
+                .takeWhile(v -> v < 3)
+                .dropWhile(v -> v < 2)
+                .forEach(System.out::println);
+        // 输出 2
+    }
+
+    /**
+     * groupingBy 对流中元素进行分组，分组时对流中所有元素应用同一个 Function。
+     * 具有相同结果的元素被分到同一组。分组之后的结果是一个 Map，Map 的键是应用 Function 之后的结果，而对应的值是属于该组的所有元素的 List。
+     */
+    public static void groupingBy() {
+        Map<Character, List<String>> names = Stream.of("Alex", "Bob", "David", "Amy").collect(Collectors.groupingBy(v -> v.charAt(0)));
+        String nameStr = Stream.of("Alex", "Bob", "David", "Amy").collect(Collectors.joining(","));
+        System.out.println("names = " + names);
+        // {A=[Alex, Amy], B=[Bob], D=[David]}
+        System.out.println("nameStr = " + nameStr);
+        // Alex,Bob,David,Amy
+        HashSet<String> nameHashSet = Stream.of("Alex", "Bob", "David", "Amy").collect(Collectors.toCollection(HashSet::new));
+        System.out.println("nameHashSet = " + nameHashSet);
     }
 }
