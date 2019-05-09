@@ -11,6 +11,21 @@ import java.util.stream.Stream;
  * Created by quyuanchao on 2019/4/21 16:49.
  * <p>Title: Streams Lambda</p>
  * <p>Description: Streams Learn</p>
+ * Stream 的总结：
+ * 1. 不是数据结构
+ * 2. 它没有内部存储，它只是用操作管道从 source（数据结构、数组、generator function、IO channel）抓取数据。
+ * 3. 它也绝不修改自己所封装的底层数据结构的数据。例如 Stream 的 filter 操作会产生一个不包含被过滤元素的新 Stream，而不是从 source 删除那些元素。
+ * 4. 所有 Stream 的操作必须以 lambda 表达式为参数
+ * 5. 不支持索引访问
+ * 6. 你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。不过请参阅下一项。
+ * 7. 很容易生成数组或者 List
+ * 8. 惰性化
+ * 9. 很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。
+ * 10. Intermediate 操作永远是惰性化的。
+ * 11. 并行能力
+ * 12. 当一个 Stream 是并行化的，就不需要再写多线程代码，所有对它的操作会自动并行进行的。
+ * 13. 可以是无限的
+ * 14. 集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream 进行运算并很快完成。
  */
 public class Streams {
     private static List<Person> javaProgrammers = new ArrayList<Person>() {
@@ -54,7 +69,9 @@ public class Streams {
 //        summaryStatistics();
 //        flatMap();
 //        takeDropWhile();
-        groupingBy();
+//        groupingBy();
+//        matchDemo();
+        partitioningBy();
     }
 
     /**
@@ -279,11 +296,11 @@ public class Streams {
      * dropWhile:从第一个元素开始匹配，直到第一个不符合规则的元素为止，取后面所有元素集合
      */
     private static void takeDropWhile() {
-        List<Integer> list = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
-        list.stream().dropWhile(x -> x < 80 ).forEach(System.out::println);
+        List<Integer> list = Arrays.asList(45, 43, 76, 87, 42, 77, 90, 73, 67, 88);
+        list.stream().dropWhile(x -> x < 80).forEach(System.out::println);
         System.out.println("");
-        List<Integer> list1 = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
-        list1.stream().takeWhile(x -> x < 80 ).forEach(System.out::println);
+        List<Integer> list1 = Arrays.asList(45, 43, 76, 87, 42, 77, 90, 73, 67, 88);
+        list1.stream().takeWhile(x -> x < 80).forEach(System.out::println);
     }
 
     /**
@@ -299,5 +316,29 @@ public class Streams {
         // Alex,Bob,David,Amy
         HashSet<String> nameHashSet = Stream.of("Alex", "Bob", "David", "Amy").collect(Collectors.toCollection(HashSet::new));
         System.out.println("nameHashSet = " + nameHashSet);
+    }
+
+    /**
+     * partitioningBy 根据 Predicate 获得二值型数据结构，通过 get(true/false) 可获得对应的集合
+     */
+    public static void partitioningBy() {
+        Map<Boolean, List<Person>> javaer = javaProgrammers.stream().collect(Collectors.partitioningBy(person -> "female".equals(person.getGender())));
+        javaer.forEach((aBoolean, people) -> System.out.println(aBoolean + ": " + people.stream().map(Person::getFirstName).collect(Collectors.toList())));
+        System.out.println(javaer.get(false).stream().map(Person::getFirstName).collect(Collectors.toList()));
+        System.out.println(javaer.get(true).stream().map(Person::getFirstName).collect(Collectors.toList()));
+    }
+
+    /**
+     * 1. allMatch：Stream 中全部元素符合传入的 predicate，返回 true
+     * 2. anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true
+     * 3. noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true
+     */
+    public static void matchDemo() {
+        boolean allMatch = javaProgrammers.stream().allMatch(person -> person.getAge() > 20);
+        System.out.println("allMatch = " + allMatch);
+        boolean anyMatch = javaProgrammers.stream().anyMatch(person -> person.getAge() > 20);
+        System.out.println("anyMatch = " + anyMatch);
+        boolean noneMatch = javaProgrammers.stream().noneMatch(person -> person.getAge() > 20);
+        System.out.println("noneMatch = " + noneMatch);
     }
 }
