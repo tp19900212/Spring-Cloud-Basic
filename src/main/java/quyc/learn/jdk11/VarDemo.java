@@ -1,4 +1,4 @@
-package quyc.learn.lambda.jdk11;
+package quyc.learn.jdk11;
 
 /**
  * @author: andy

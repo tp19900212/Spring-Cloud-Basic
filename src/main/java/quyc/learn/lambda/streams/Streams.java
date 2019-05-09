@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -52,8 +53,77 @@ public class Streams {
 //        parallel();
 //        summaryStatistics();
 //        flatMap();
+//        takeDropWhile();
         groupingBy();
     }
+
+    /**
+     * 流的构造与转换
+     * <p>
+     * 集合和数组
+     * 1. Collection.stream()
+     * 2. Collection.parallelStream()
+     * 3. Arrays.stream(T array) or Stream.of()
+     * <p>
+     * BufferedReader
+     * 4. java.io.BufferedReader.lines()
+     * <p>
+     * 静态工厂
+     * 5. java.util.stream.IntStream.range()
+     * 6. java.nio.file.Files.walk()
+     * <p>
+     * 自己构建
+     * 7. java.util.Spliterator
+     * <p>
+     * 其它
+     * 8. Random.ints()
+     * 9. BitSet.stream()
+     * 10. Pattern.splitAsStream(java.lang.CharSequence)
+     * 11. JarFile.stream()
+     */
+    public static void build() {
+        // 1. Individual values
+        Stream<String> stream = Stream.of("a", "b", "c");
+        // 2. Arrays
+        String[] strArray = new String[]{"a", "b", "c"};
+        stream = Stream.of(strArray);
+        stream = Arrays.stream(strArray);
+        // 3. Collections
+        List<String> list = Arrays.asList(strArray);
+        stream = list.stream();
+        stream.forEach(System.out::println);
+        // 4. 数值流的构造
+        IntStream.of(1, 2, 3).forEach(System.out::println);
+        IntStream.range(1, 3).forEach(System.out::println);
+        IntStream.rangeClosed(1, 3).forEach(System.out::println);
+        // 5. 流转换为其它数据结构
+        // 5.1. Array
+        String[] strArray1 = stream.toArray(String[]::new);
+        // 5.2. Collection
+        List<String> list1 = stream.collect(Collectors.toList());
+        List<String> list2 = stream.collect(Collectors.toCollection(ArrayList::new));
+        Set set1 = stream.collect(Collectors.toSet());
+        Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
+        // 5.3. String
+        String str = stream.collect(Collectors.joining()).toString();
+    }
+
+    /**
+     * 流的操作
+     * 接下来，当把一个数据结构包装成 Stream 后，就要开始对里面的元素进行各类操作了。常见的操作可以归类如下。
+     * <p>
+     * 1. Intermediate：一个流可以后面跟随零个或多个 intermediate 操作。
+     * 其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。
+     * 这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。
+     * map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered
+     * <p>
+     * 2. Terminal：一个流只能有一个 terminal 操作，当这个操作执行后，流就被使用“光”了，无法再被操作。
+     * 所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。
+     * forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
+     * <p>
+     * 3. Short-circuiting：当操作一个无限大的 Stream，而又希望在有限时间内完成操作。
+     * anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit
+     */
 
     /**
      * printf 格式
@@ -202,12 +272,18 @@ public class Streams {
                 .flatMap(v -> Stream.of(v * 5, v * 10))
                 .forEach(System.out::println);
         // 输出 10，20，15，30，20，40
+    }
 
-        Stream.of(1, 2, 3)
-                .takeWhile(v -> v < 3)
-                .dropWhile(v -> v < 2)
-                .forEach(System.out::println);
-        // 输出 2
+    /**
+     * takeWhile:从第一个元素开始匹配，直到第一个不符合规则的元素为止，取前面符合要求的元素集合
+     * dropWhile:从第一个元素开始匹配，直到第一个不符合规则的元素为止，取后面所有元素集合
+     */
+    private static void takeDropWhile() {
+        List<Integer> list = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
+        list.stream().dropWhile(x -> x < 80 ).forEach(System.out::println);
+        System.out.println("");
+        List<Integer> list1 = Arrays.asList(45,43,76,87,42,77,90,73,67,88);
+        list1.stream().takeWhile(x -> x < 80 ).forEach(System.out::println);
     }
 
     /**
