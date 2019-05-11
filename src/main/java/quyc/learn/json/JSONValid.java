@@ -19,7 +19,11 @@ public class JSONValid {
         String str = object.toJSONString();
         System.out.println("str = " + str);
         boolean valid = JSONObject.isValid(str);
+        boolean validObject = JSONObject.isValidObject(str);
+        boolean validArray = JSONObject.isValidArray(str);
         System.out.println("valid = " + valid);
+        System.out.println("validObject = " + validObject);
+        System.out.println("validArray = " + validArray);
         String str1 = "aall|abc|ddd";
         System.out.println(JSONObject.isValid(str1));
 
