@@ -8,6 +8,6 @@ RUN yum install -y wget
 RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 RUN rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 RUN yum install -y jenkins
-#CMD ["java -jar /usr/lib/jenkins/jenkins.war"]
+#CMD ["java -jar /usr/lib/learn/learn.war"]
 CMD ["/bin/bash"]
 EXPOSE 8080
