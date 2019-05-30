@@ -9,8 +9,8 @@ RUN yum install -y wget
 # 安装java11
 WORKDIR /opt/dev
 RUN wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
-RUN rm openjdk-11+28_linux-x64_bin.tar.gz
 RUN tar -xvf openjdk-11+28_linux-x64_bin.tar.gz
+RUN rm openjdk-11+28_linux-x64_bin.tar.gz
 ENV JAVA_HOME=/opt/dev/jdk-11
 ENV PATH=$JAVA_HOME/bin:$PATH
 ENV CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
