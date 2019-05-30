@@ -4,4 +4,4 @@ ENV REFRESHED_AT 2019-05-30
 # 开放8080端口
 EXPOSE 8080
 # 启动工程
-ENTRYPOINT java -jar /opt/dev/learn-1.0-SNAPSHOT.jar
+ENTRYPOINT java -jar /opt/dev/learn.jar
