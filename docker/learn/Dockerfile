@@ -9,3 +9,6 @@ VOLUME ["/opt/dev/volume"]
 EXPOSE 8080
 # 启动工程
 ENTRYPOINT java -jar /opt/dev/learn.jar
+# 启用容器健康检查功能
+HEALTHCHECK --interval=5s --timeout=3s \
+CMD curl -f http://localhost:8080/checkHealth || exit 1

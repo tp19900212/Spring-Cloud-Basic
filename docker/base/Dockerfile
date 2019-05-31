@@ -1,11 +1,9 @@
 FROM centos
 MAINTAINER quyc07@163.com
 ENV REFRESHED_AT 2019-05-30
-WORKDIR /opt/dev
 # 安装相关软件
 RUN yum install -y wget && \
 #yum install -y net-tools.x86_64 && \
-#yum install -y curl && \
 #yum install -y unzip && \
     yum clean all && \
 # 安装java11
