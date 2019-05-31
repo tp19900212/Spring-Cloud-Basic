@@ -7,7 +7,7 @@ mv docker/learn/Dockerfile /opt/dev/jenkins_deploy/learn_docker
 # 获取运行中的容器ID
 container_id=$(docker ps --filter name=learn_docker -q)
 # 获取镜像ID
-image_id=$(docker images --filter reference=quyc07/learn:* -q)
+image_id=$(docker images --filter reference=quyc07/learn:latest -q)
 # 运行中的容器存在
 if [ -n "$container_id" ]
 then
