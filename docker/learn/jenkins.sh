@@ -1,9 +1,9 @@
 #!/bin/bash
-# 切换到部署目录
-cd /opt/dev/jenkins_deploy/learn_docker
-# 传递应用程序和Dockerfile
-mv /var/lib/jenkins/workspace/learn/learn/target/*.jar /opt/dev/jenkins_deploy/learn_docker/learn.jar
-mv /var/lib/jenkins/workspace/learn/docker/learn/Dockerfile /opt/dev/jenkins_deploy/learn_docker
+# 项目部署目标路径
+deploy_path=/opt/dev/jenkins_deploy/learn_docker/
+# 传递应用程序和Dockerfile（宿主机地址为相对JENKINS_HOME地址）
+mv learn/target/*.jar "$deploy_path"/learn.jar
+mv docker/learn/Dockerfile /opt/dev/jenkins_deploy/learn_docker
 # 获取运行中的容器ID
 container_id=$(docker ps --filter name=learn_docker -q)
 # 获取镜像ID
@@ -31,6 +31,6 @@ then
     docker rmi "$image_id"
 fi
 # 构建镜像
-docker build -t="quyc07/learn" .
+docker build -t="quyc07/learn" "$deploy_path"/.
 # 启动容器
 docker run -d --name learn_docker -p8092:8080 quyc07/learn
