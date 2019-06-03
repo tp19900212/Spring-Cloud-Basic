@@ -7,29 +7,27 @@
         <artifactId>learn-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>learn</artifactId>
+    <artifactId>zuul</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>learn</name>
+    <name>zuul</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
+
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>
