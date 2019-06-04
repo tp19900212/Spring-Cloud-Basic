@@ -1,4 +1,4 @@
-# ==TomcatÅäÖÃ==
+# ==Tomcatï¿½ï¿½ï¿½ï¿½==
 server:
   port: 8081
 
@@ -9,9 +9,12 @@ eureka:
 spring:
   application:
     name: zuul
-# Íø¹ØÂ·ÓÉ
+# ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 zuul:
   routes:
     api-one:
       path: /api-one/**
       serviceId: api-one
+    api-two:
+      path: /api-two/**
+      serviceId: api-two

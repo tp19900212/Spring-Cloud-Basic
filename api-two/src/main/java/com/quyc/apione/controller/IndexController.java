@@ -1,0 +1,31 @@
+package com.quyc.apione.controller;
+
+import com.quyc.apione.service.IndexService;
+import com.quyc.apione.service.IndexTwoService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author: andy
+ * @create: 2019/6/3 19:22
+ * @description: index
+ */
+@RestController
+@RequestMapping("index")
+@Slf4j
+public class IndexController {
+
+    @Autowired
+    private IndexService indexService;
+    @Autowired
+    private IndexTwoService indexTwoService;
+
+    @RequestMapping("")
+    public String index(String name) {
+        log.info("index name={}", name);
+        return indexTwoService.indexTwo(name);
+    }
+
+}

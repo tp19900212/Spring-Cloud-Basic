@@ -9,7 +9,7 @@
     </parent>
     <artifactId>api-one</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>api-one</name>
+    <name>api-two</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
