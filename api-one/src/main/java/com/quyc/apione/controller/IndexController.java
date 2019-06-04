@@ -1,6 +1,7 @@
 package com.quyc.apione.controller;
 
 import com.quyc.apione.service.IndexService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("index")
+@Slf4j
 public class IndexController {
 
     @Autowired
@@ -19,6 +21,7 @@ public class IndexController {
 
     @RequestMapping("")
     public String index(String name) {
+        log.info("index name={}", name);
         return indexService.index(name);
     }
 

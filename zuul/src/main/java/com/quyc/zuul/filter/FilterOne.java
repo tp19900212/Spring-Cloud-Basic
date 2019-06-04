@@ -2,6 +2,7 @@ package com.quyc.zuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description: filter one
  */
 @Component
+@Slf4j
 public class FilterOne extends ZuulFilter {
 
     /**
@@ -58,7 +60,7 @@ public class FilterOne extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         HttpServletResponse response = requestContext.getResponse();
         StringBuffer requestURL = request.getRequestURL();
-        System.out.println("requestURL = " + requestURL);
+        log.info("requestURL={}", requestURL);
         return null;
     }
 

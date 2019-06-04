@@ -2,7 +2,7 @@
 <configuration>
 
 	<property name="LOG.PATTERN"
-			  value="%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{x-b3-parentspanid:-},%X{x-b3-traceid:-},%X{x-b3-spanid:-},%X{x-b3-sampled:-}] [%thread] %-5level %logger{50} - %msg%n" />
+			  value="%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-ParentSpanId:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n" />
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<!-- 日志输出编码 --> 
