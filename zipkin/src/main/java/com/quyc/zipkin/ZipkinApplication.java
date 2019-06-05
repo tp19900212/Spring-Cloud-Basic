@@ -1,17 +1,17 @@
-package com.quyc.apione;
+package com.quyc.zipkin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import zipkin2.server.internal.EnableZipkinServer;
 
-@EnableDiscoveryClient
-@EnableFeignClients
 @SpringBootApplication
-public class ApiTwoApplication {
+@EnableDiscoveryClient
+@EnableZipkinServer
+public class ZipkinApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiTwoApplication.class, args);
+        SpringApplication.run(ZipkinApplication.class, args);
     }
 
 }

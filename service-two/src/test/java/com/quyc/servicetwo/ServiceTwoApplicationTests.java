@@ -1,4 +1,4 @@
-package com.quyc.serviceone;
+package com.quyc.servicetwo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

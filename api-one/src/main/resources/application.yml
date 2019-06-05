@@ -1,6 +1,6 @@
 # ==Tomcat配置==
 server:
-  port: 8092
+  port: 8082
 eureka:
   client:
     serviceUrl:
@@ -8,4 +8,8 @@ eureka:
 spring:
   application:
     name: api-one
-
+  zipkin:
+    base-url: http://localhost:8086
+logging:
+  pattern:
+    console:

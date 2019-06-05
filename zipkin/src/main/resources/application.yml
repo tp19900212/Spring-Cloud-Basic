@@ -1,0 +1,21 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: zipkin-server
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+
+#management:
+#  security:
+#    enabled: false #关闭验证
+info: #/info请求的显示信息
+  app:
+    name: ${spring.application.name}
+    version: 1.0.0
+  build:
+    artifactId: @project.artifactId@
+    version: @project.version@

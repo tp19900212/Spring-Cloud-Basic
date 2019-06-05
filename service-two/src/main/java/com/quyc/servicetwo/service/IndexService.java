@@ -1,4 +1,4 @@
-package com.quyc.apione.service;
+package com.quyc.servicetwo.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
