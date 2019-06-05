@@ -1,6 +1,6 @@
-# ==TomcatÅäÖÃ==
+# ==Tomcaté…ç½®==
 server:
-  port: 8082
+  port: 8092
 eureka:
   client:
     serviceUrl:

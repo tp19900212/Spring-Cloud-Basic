@@ -1,7 +1,7 @@
-# ==TomcatÅäÖÃ==
+# ==Tomcatï¿½ï¿½ï¿½ï¿½==
 server:
-  port: 8083
-# eureka ÅäÖÃ
+  port: 8093
+# eureka ï¿½ï¿½ï¿½ï¿½
 eureka:
   client:
     serviceUrl:
