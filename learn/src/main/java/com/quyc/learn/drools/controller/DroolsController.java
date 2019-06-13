@@ -22,6 +22,10 @@ public class DroolsController {
     public String showRules() {
         return droolsService.fireRule();
     }
+    @GetMapping("/showRulesByJavaConfig")
+    public String showRulesByJavaConfig() {
+        return droolsService.fireRuleByJavaConfig();
+    }
 
     @GetMapping("/testBoot")
     public String testBoot() {
