@@ -5,10 +5,10 @@ ENV REFRESHED_AT 2019-05-30
 COPY learn.jar /opt/dev/learn.jar
 # 挂载卷
 VOLUME ["/opt/dev/volume"]
-# 开放8080端口
-EXPOSE 8080
+# 开放8090端口
+EXPOSE 8090
 # 启动工程
 ENTRYPOINT java -jar /opt/dev/learn.jar
 # 启用容器健康检查功能
 HEALTHCHECK --interval=5s --timeout=3s \
-CMD curl -f http://localhost:8080/checkHealth || exit 1
+CMD curl -f http://localhost:8090/checkHealth || exit 1
