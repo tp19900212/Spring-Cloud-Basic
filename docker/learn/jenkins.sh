@@ -33,4 +33,4 @@ fi
 # 构建镜像
 docker build -t="quyc07/learn" "$deploy_path"/.
 # 启动容器
-docker run -d --name learn_docker -p8092:8080 quyc07/learn
+docker run -d --name learn_docker -p8092:8090 quyc07/learn
