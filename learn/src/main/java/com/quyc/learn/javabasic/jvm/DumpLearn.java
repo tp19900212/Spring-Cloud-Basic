@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
 @Component
 public class DumpLearn {
 
-    @PostConstruct
+//    @PostConstruct
     public void makeOOM() {
         String aa = "aaaaaaaaaaaaaaaaaaaaaa";
         List<String> list = Lists.newArrayList();
