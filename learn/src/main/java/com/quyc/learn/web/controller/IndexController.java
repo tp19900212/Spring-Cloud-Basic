@@ -1,5 +1,6 @@
 package com.quyc.learn.web.controller;
 
+import com.quyc.learn.condition.module.Person;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -23,4 +24,8 @@ public class IndexController {
         return "welcome to my springboot progrem, " + name;
     }
 
+    @RequestMapping("/index/person")
+    public Person getPerson(Person person) {
+        return person;
+    }
 }
