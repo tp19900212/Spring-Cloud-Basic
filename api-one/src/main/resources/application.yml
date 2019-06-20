@@ -17,10 +17,16 @@ management:
   endpoints:
     web:
       exposure:
-        include:
-          - health
-          - info
-          - hystrix.stream
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
 feign:
   hystrix:
     enabled: true
+info:
+  app:
+    name: ${spring.application.name}
+    version: @version@

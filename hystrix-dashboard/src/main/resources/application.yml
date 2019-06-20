@@ -4,3 +4,20 @@ spring:
     name: hystrix-dashboard
 server:
   port: 8100
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+feign:
+  hystrix:
+    enabled: true
+info:
+  app:
+    name: ${spring.application.name}
+    version: @version@
