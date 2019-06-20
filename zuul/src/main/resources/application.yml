@@ -9,6 +9,10 @@ spring:
     name: zuul
   zipkin:
     base-url: http://localhost:8086
+  boot:
+    admin:
+      client:
+        url: http://localhost:8200
 zuul:
   routes:
     api-one:
