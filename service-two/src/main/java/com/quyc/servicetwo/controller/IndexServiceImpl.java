@@ -1,26 +1,24 @@
-package com.quyc.apitwo.controller;
+package com.quyc.servicetwo.controller;
 
-import com.quyc.servicetwo.spi.IndexService;
+import com.quyc.serviceone.spi.IndexService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
 /**
  * @author: andy
- * @create: 2019/6/3 19:22
+ * @create: 2019/6/3 19:36
  * @description: index
  */
 @RestController
-@RequestMapping("index")
 @Slf4j
-public class IndexController {
+public class IndexServiceImpl implements com.quyc.servicetwo.spi.IndexService {
 
     @Resource
     private IndexService indexService;
 
-    @RequestMapping("")
+    @Override
     public String index(String name) {
         log.info("index name={}", name);
         return indexService.index(name);

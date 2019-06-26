@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.quyc.servicetwo.spi"})
 public class ApiTwoApplication {
 
     public static void main(String[] args) {

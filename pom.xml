@@ -22,7 +22,9 @@
         <module>api-two</module>
         <module>service-one</module>
         <module>service-two</module>
-<!--        <module>zipkin</module>-->
+<!--        <module>service-one-spi</module>-->
+<!--        <module>service-two-spi</module>-->
+        <!--        <module>zipkin</module>-->
     </modules>
 
     <properties>
