@@ -6,17 +6,23 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.IndicesOptions;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,7 +36,8 @@ public class SearchApi {
 
     public static void main(String[] args) throws IOException {
 //        search();
-        searchQuery();
+//        searchQuery();
+        searchQueryHighLight();
     }
 
     /**
@@ -111,12 +118,35 @@ public class SearchApi {
         SearchRequest searchRequest = new SearchRequest("posts");
         // 可通过 SearchSourceBuilder 设置任意查询条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        // 使用and逻辑运算符
+        searchSourceBuilder.query(QueryBuilders.matchQuery("title","In which order").operator(Operator.AND));
+        // 初始化 HighlightBuilder
         HighlightBuilder highlightBuilder = new HighlightBuilder();
+        // 创建 HighlightBuilder.Field，指定高亮属性名，该属性名需要在 query 语句搜索条件内
         HighlightBuilder.Field highLightTitle = new HighlightBuilder.Field("title");
-        highLightTitle.highlighterType("unified");
+        // 指定高亮形式 {@code unified}, {@code plain} and {@code fvj}，默认unified
+        highLightTitle.highlighterType("plain");
+        // 添加高亮field，该方法调用多次可添加多个高亮属性
+        highlightBuilder.field(highLightTitle);
+        HighlightBuilder.Field highLightUser = new HighlightBuilder.Field("user");
+        highlightBuilder.field(highLightUser);
+        // 添加高亮配置
+        searchSourceBuilder.highlighter(highlightBuilder);
         searchRequest.source(searchSourceBuilder);
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         System.out.println("searchResponse = " + searchResponse);
+        SearchHits hits = searchResponse.getHits();
+        for (SearchHit hit : hits.getHits()) {
+            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+            HighlightField highlight = highlightFields.get("title");
+            Text[] fragments = highlight.fragments();
+            String fragmentString = fragments[0].string();
+            System.out.println("fragmentString = " + fragmentString);
+        }
+    }
+
+    public static void searchAggregations() {
+
     }
 
 
