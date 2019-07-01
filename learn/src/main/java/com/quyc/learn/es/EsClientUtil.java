@@ -1,7 +1,13 @@
 package com.quyc.learn.es;
 
 import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
 /**
@@ -12,9 +18,25 @@ import org.elasticsearch.client.RestHighLevelClient;
 //@Configuration
 public class EsClientUtil {
 
+
     private static class RestHighLevelClientHolder {
+        private static CredentialsProvider credentialsProvider;
+
+        static {
+            credentialsProvider = new BasicCredentialsProvider();
+            credentialsProvider.setCredentials(AuthScope.ANY,
+                    new UsernamePasswordCredentials("elastic", "Es!@#$%^"));
+        }
+
         private static final RestHighLevelClient ES_CLIENT = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("192.168.175.128", 9200, "http"))
+                RestClient.builder(new HttpHost("es-cn-45916s405000dd54p.public.elasticsearch.aliyuncs.com",
+                        9200, "http"))
+                        .setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+                            @Override
+                            public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpAsyncClientBuilder) {
+                                return httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+                            }
+                        })
         );
     }
 
