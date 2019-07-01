@@ -1,5 +1,6 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.document;
 
+import com.quyc.learn.es.EsClientUtil;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.core.TermVectorsRequest;

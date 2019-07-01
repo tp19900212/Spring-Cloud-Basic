@@ -1,5 +1,6 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.document;
 
+import com.quyc.learn.es.EsClientUtil;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.get.MultiGetItemResponse;

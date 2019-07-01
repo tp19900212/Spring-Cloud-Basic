@@ -1,5 +1,6 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.document;
 
+import com.quyc.learn.es.EsClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.bulk.BackoffPolicy;

@@ -1,5 +1,6 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.document;
 
+import com.quyc.learn.es.EsClientUtil;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.bulk.BulkItemResponse;
