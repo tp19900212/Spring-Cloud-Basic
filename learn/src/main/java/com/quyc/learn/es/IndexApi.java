@@ -30,8 +30,10 @@ public class IndexApi {
 
     public static void main(String[] args) throws Exception {
 //        index();
-//        index5WithException();
-        indexWithSameDoc();
+//        index2();
+//        index3();
+        index4();
+//        indexWithSameDoc();
     }
 
     /**
