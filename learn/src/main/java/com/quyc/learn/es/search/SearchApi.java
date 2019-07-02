@@ -10,6 +10,11 @@ import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.avg.Avg;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -30,7 +35,9 @@ public class SearchApi {
 
     public static void main(String[] args) throws IOException {
 //        search();
-        searchQuery();
+//        searchQuery();
+//        searchQueryHighlight();
+        searchAggregation();
     }
 
     /**
@@ -106,7 +113,7 @@ public class SearchApi {
      *
      * @throws IOException the io exception
      */
-    public static void searchQueryHighLight() throws IOException {
+    public static void searchQueryHighlight() throws IOException {
         // 创建一个空的SearchRequest，则对所有index进行搜索，传入index可对该index进行搜索
         SearchRequest searchRequest = new SearchRequest("posts");
         // 可通过 SearchSourceBuilder 设置任意查询条件
@@ -119,5 +126,24 @@ public class SearchApi {
         System.out.println("searchResponse = " + searchResponse);
     }
 
+    public static void searchAggregation() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("person");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        // 设置聚合条件 即根据性别分组，此处注意使用 gender.keyword
+        TermsAggregationBuilder byGender = AggregationBuilders.terms("by_gender").field("gender.keyword");
+        // 设置聚合函数
+        byGender.subAggregation(AggregationBuilders.avg("avg_salary").field("salary"));
+        searchSourceBuilder.aggregation(byGender);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        System.out.println("searchResponse = " + searchResponse);
+        Aggregations aggregations = searchResponse.getAggregations();
+        // 解析聚合结果
+        Terms byGenderAggregation = aggregations.get("by_gender");
+        Terms.Bucket female = byGenderAggregation.getBucketByKey("female");
+        Avg avgSalary = female.getAggregations().get("avg_salary");
+        double value = avgSalary.getValue();
+        System.out.println("value = " + value);
+    }
 
 }
