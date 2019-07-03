@@ -1,5 +1,6 @@
 package com.quyc.learn.es.document;
 
+import com.alibaba.fastjson.JSON;
 import com.quyc.learn.es.EsClientUtil;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.support.replication.ReplicationResponse;
@@ -11,6 +12,7 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.get.GetResult;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,12 +29,14 @@ public class UpdateApi {
     }
 
     public static void update() throws IOException {
-        UpdateRequest request = new UpdateRequest("posts", "doc", "1");
-        String jsonString = "{" +
-                "\"updated\":\"2019-07-02\"," +
-                "\"reason\":\"daily update\"" +
-                "}";
-        request.doc(jsonString, XContentType.JSON);
+        UpdateRequest request = new UpdateRequest("andi_index", "_doc", "2");
+        Map<String, Object> jsonMap = new HashMap<>();
+        Map<String, String> son = new HashMap<>();
+        jsonMap.put("text", "this is another answer");
+        son.put("name", "answer");
+        son.put("parent", "4");
+        jsonMap.put("andi_index_field", son);
+        request.doc(JSON.toJSONString(jsonMap), XContentType.JSON);
         // 更新之后拉取最新的文档
         request.fetchSource(true);
         UpdateResponse updateResponse = client.update(request, RequestOptions.DEFAULT);

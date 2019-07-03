@@ -12,13 +12,14 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.join.query.HasParentQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.Avg;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
@@ -43,8 +44,10 @@ public class SearchApi {
 //        search();
 //        searchQuery();
 //        searchQueryHighlight();
-        searchAggregation();
-        searchQueryHighLight();
+//        searchAggregation();
+//        searchQueryHighlight();
+        searchParentChild();
+
     }
 
     /**
@@ -126,7 +129,7 @@ public class SearchApi {
         // 可通过 SearchSourceBuilder 设置任意查询条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         // 使用and逻辑运算符
-        searchSourceBuilder.query(QueryBuilders.matchQuery("title","In which order").operator(Operator.AND));
+        searchSourceBuilder.query(QueryBuilders.matchQuery("title", "In which order").operator(Operator.AND));
         // 初始化 HighlightBuilder
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         // 创建 HighlightBuilder.Field，指定高亮属性名，该属性名需要在 query 语句搜索条件内
@@ -152,10 +155,11 @@ public class SearchApi {
         }
     }
 
-    public static void searchAggregations() {
-
-    }
-
+    /**
+     * 聚合函数
+     *
+     * @throws IOException
+     */
     public static void searchAggregation() throws IOException {
         SearchRequest searchRequest = new SearchRequest("person");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -174,6 +178,21 @@ public class SearchApi {
         Avg avgSalary = female.getAggregations().get("avg_salary");
         double value = avgSalary.getValue();
         System.out.println("value = " + value);
+    }
+
+    /**
+     * 父子关系查询
+     *
+     * @throws IOException
+     */
+    public static void searchParentChild() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("andi_index");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        HasParentQueryBuilder hasParentQueryBuilder = new HasParentQueryBuilder("question", QueryBuilders.matchQuery("text", "This"), true);
+        searchSourceBuilder.query(hasParentQueryBuilder);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
+        System.out.println("search = " + search);
     }
 
 }

@@ -30,7 +30,9 @@ public class DeleteApi {
      * @throws IOException
      */
     public static void delete() throws IOException {
-        DeleteRequest deleteRequest = new DeleteRequest("accounuts", "person", "1");
+        DeleteRequest deleteRequest = new DeleteRequest("andi_index", "_doc", "3");
+        // 指定routing
+//        deleteRequest.routing("4");
         DeleteResponse deleteResponse = client.delete(deleteRequest, RequestOptions.DEFAULT);
         if (deleteResponse.getResult() == DocWriteResponse.Result.NOT_FOUND) {
             // 该文档不存在时
