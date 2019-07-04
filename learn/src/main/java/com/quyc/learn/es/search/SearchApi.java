@@ -119,7 +119,7 @@ public class SearchApi {
     }
 
     /**
-     * 通过 SearchSourceBuilder 条件化搜索
+     * 高亮显示结果
      *
      * @throws IOException the io exception
      */
