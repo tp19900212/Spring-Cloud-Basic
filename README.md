@@ -1,4 +1,4 @@
-# SCBasic
+# Spring-Cloud-Basic
 
 本项目基于 SpringCloud 搭建的微服务开发脚手架，可基于此项目快速开发应用程序，内部集成功能如下：
 
