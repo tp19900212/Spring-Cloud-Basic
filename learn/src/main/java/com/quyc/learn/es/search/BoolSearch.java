@@ -11,6 +11,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -47,8 +48,9 @@ public class BoolSearch {
                 // 不包含年龄在 20-26 之间的
                 .mustNot(QueryBuilders.rangeQuery("age").gte(20).lte(26))
                 // 薪资是1200或1700
-                .should(QueryBuilders.termQuery("salary", 1200))
-                .should(QueryBuilders.termQuery("salary", 1700))
+//                .should(QueryBuilders.termQuery("salary", 1200))
+//                .should(QueryBuilders.termQuery("salary", 1700))
+                .should(QueryBuilders.termsQuery("salary", Arrays.asList(1200, 1700)))
                 // should条件必须满足一个
                 .minimumShouldMatch(1);
         searchRequest.source(new SearchSourceBuilder().query(boolQueryBuilder));
