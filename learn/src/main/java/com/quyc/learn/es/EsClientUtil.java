@@ -1,6 +1,7 @@
 package com.quyc.learn.es;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -76,14 +77,14 @@ public class EsClientUtil {
      */
     public static <T> List<T> getSearchResult(SearchResponse response, Class<T> clazz) {
         if (response == null) {
-            return null;
+            return Lists.newArrayList();
         }
         if (response.status() != RestStatus.OK) {
-            return null;
+            return Lists.newArrayList();
         }
         SearchHits hits = response.getHits();
         if (hits == null || hits.totalHits == 0L) {
-            return null;
+            return Lists.newArrayList();
         }
         SearchHit[] searchHits = hits.getHits();
         List<T> result = new ArrayList<>();
