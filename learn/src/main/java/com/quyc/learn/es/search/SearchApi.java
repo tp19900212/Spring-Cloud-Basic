@@ -20,6 +20,9 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.avg.Avg;
+import org.elasticsearch.search.aggregations.metrics.cardinality.Cardinality;
+import org.elasticsearch.search.aggregations.metrics.cardinality.CardinalityAggregationBuilder;
+import org.elasticsearch.search.aggregations.support.ValueType;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
@@ -45,8 +48,9 @@ public class SearchApi {
 //        searchQuery();
 //        searchQueryHighlight();
 //        searchAggregation();
+        searchAggregationCardinality();
 //        searchQueryHighlight();
-        searchParentChild();
+//        searchParentChild();
 
     }
 
@@ -177,6 +181,26 @@ public class SearchApi {
         Terms.Bucket female = byGenderAggregation.getBucketByKey("female");
         Avg avgSalary = female.getAggregations().get("avg_salary");
         double value = avgSalary.getValue();
+        System.out.println("value = " + value);
+    }
+
+    /**
+     * 去重聚合函数
+     *
+     * @throws IOException
+     */
+    public static void searchAggregationCardinality() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("person");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        CardinalityAggregationBuilder builder = new CardinalityAggregationBuilder("distinct_salary", ValueType.STRING);
+        builder.field("gender.keyword");
+        searchSourceBuilder.size(0);
+        searchRequest.source(searchSourceBuilder.aggregation(builder));
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        System.out.println("searchResponse = " + searchResponse);
+        Aggregations aggregations = searchResponse.getAggregations();
+        Cardinality cardinality = aggregations.get("distinct_salary");
+        long value = cardinality.getValue();
         System.out.println("value = " + value);
     }
 
