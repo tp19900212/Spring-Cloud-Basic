@@ -1,4 +1,4 @@
-package com.quyc.learn.es.search;
+package com.quyc.learn.es.searchinaction;
 
 import com.google.common.collect.Lists;
 import com.quyc.learn.es.BuyerPortraitQuery;
@@ -47,6 +47,12 @@ public class SearchInAction {
 //        test(query);
     }
 
+    /**
+     * 使用ElasticSearch模拟对应的sql方法
+     *
+     * @param query
+     * @throws IOException
+     */
     public static void countSingleLabelBuyerPortrait(BuyerPortraitQuery query) throws IOException {
         SearchRequest searchRequest = new SearchRequest("buyer_portrait_calculate");
         BoolQueryBuilder builder = QueryBuilders.boolQuery();
@@ -201,10 +207,8 @@ public class SearchInAction {
                 builder.must(QueryBuilders.rangeQuery("productCount180").lte(query.getMaxProductCount180()));
             }
             if (query.getOrderConsultTag() != null && query.getNonOrderConsultTag() == null) {
-                // todo andy ElasticSearch 与运算
             }
             if (query.getOrderConsultTag() == null && query.getNonOrderConsultTag() != null) {
-
             }
             if (query.getOrderConsultTag() != null && query.getNonOrderConsultTag() != null) {
 
