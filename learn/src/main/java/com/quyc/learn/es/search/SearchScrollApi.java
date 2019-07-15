@@ -21,16 +21,16 @@ import java.io.IOException;
 public class SearchScrollApi {
     private static RestHighLevelClient client = EsClientUtil.getClient();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         searchScroll();
     }
 
-    public static void searchScroll() throws IOException {
+    public static void searchScroll() throws IOException, InterruptedException {
         // 设置时效
-        Scroll scroll = new Scroll(TimeValue.timeValueMinutes(1));
-        SearchRequest searchRequest = new SearchRequest();
+        Scroll scroll = new Scroll(TimeValue.timeValueSeconds(5));
+        SearchRequest searchRequest = new SearchRequest("person");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("gender", "male"));
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
         searchSourceBuilder.size(1);
         searchRequest.source(searchSourceBuilder);
         searchRequest.scroll(scroll);

@@ -1,4 +1,4 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.searchinaction.entity;
 
 import com.google.common.collect.Lists;
 import lombok.Data;
@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * 描述
  * 用户画像查询条件
+ *
  * @author Created by mayu
  * @create 2019-01-2019/1/12
  */
@@ -17,7 +18,18 @@ import java.util.List;
 @ToString
 public class BuyerPortraitQuery {
 
+
     private static final long serialVersionUID = -3851967833677366016L;
+
+    /**
+     * 是否有Es的should条件
+     */
+    private boolean hasShould;
+    /**
+     * 任务Id
+     */
+    private String taskId;
+
     /**
      * 是否短信
      */
@@ -200,7 +212,6 @@ public class BuyerPortraitQuery {
     private List<Integer> sexs = Lists.newArrayList();
 
 
-
     /**
      * 最后咨询时间--开始时间
      */
@@ -211,7 +222,6 @@ public class BuyerPortraitQuery {
     private Integer lastConsultEndDays;
 
 
-
     /**
      * 最后付款时间--开始时间
      */
@@ -220,7 +230,6 @@ public class BuyerPortraitQuery {
      * 最后付款时间--结束时间
      */
     private Integer lastPayedEndDays;
-
 
 
     /**
@@ -264,7 +273,6 @@ public class BuyerPortraitQuery {
     private Long maxOrderPayed180;
 
 
-
     /**
      * 30客单价-最小值
      */
@@ -306,7 +314,6 @@ public class BuyerPortraitQuery {
     private Long maxAverageProduct180;
 
 
-
     /**
      * 30付款笔数-最小值
      */
@@ -346,8 +353,6 @@ public class BuyerPortraitQuery {
      * 180付款笔数-最大值
      */
     private Integer maxOrderCount180;
-
-
 
 
     /**
@@ -400,6 +405,105 @@ public class BuyerPortraitQuery {
      * true 28天未发消息或未创建订单
      */
     private Boolean noCommunication;
+    /**
+     * 7天有咨询
+     */
+    private Long consult7;
+    /**
+     * 15天有咨询
+     */
+    private Long consult15;
+    /**
+     * 30天有咨询
+     */
+    private Long consult30;
+    /**
+     * all 有咨询
+     */
+    private Long consultAll;
+    /**
+     * 7天未下单
+     */
+    private Long unOrder7;
+    /**
+     * 15天未下单
+     */
+    private Long unOrder15;
+    /**
+     * 30天未下单
+     */
+    private Long unOrder30;
+    /**
+     * all 未下单
+     */
+    private Long unOrderAll;
+    /**
+     * 30天有付款
+     */
+    private Long payed30;
+    /**
+     * 60天有付款
+     */
+    private Long payed60;
+    /**
+     * 18天有付款
+     */
+    private Long payed180;
+    /**
+     * all 天有付款
+     */
+    private Long payedAll;
+    /**
+     * 90天有付款
+     */
+    private Long payed90;
+    /**
+     * 30天内发送过消息
+     */
+    private Long hasMessage30;
+    /**
+     * 28天未发送过消息或没有创建订单
+     */
+    private Long noMessage28;
+    /**
+     * 28天未创建订单
+     */
+    private Long noOrder28;
+
+    /**
+     * 标签级条件
+     */
+    private List<LabelRule> labelRules;
+
+    @Data
+    public static class LabelRule {
+
+        /**
+         * 关联条件code
+         */
+        private int conditionCode;
+
+        /**
+         * 关联类型 1000.全部商品 1100.指定商品 1200.指定类目
+         */
+        private Integer productAssociatedType;
+
+        /**
+         * 关联商品ids
+         */
+        private List<String> productIds;
+
+        /**
+         * 关联商品起始时间
+         */
+        private Date productAssociatedStartDate;
+
+        /**
+         * 行为类型 1 咨询商品 2 下单商品 3 付款商品
+         */
+        private int actionType;
+    }
+
 
     @Data
     @ToString

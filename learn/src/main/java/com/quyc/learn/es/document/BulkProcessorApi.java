@@ -2,7 +2,7 @@ package com.quyc.learn.es.document;
 
 import com.alibaba.fastjson.JSON;
 import com.quyc.learn.es.EsClientUtil;
-import com.quyc.learn.lambda.streams.Person;
+import com.quyc.learn.es.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.bulk.BackoffPolicy;
@@ -99,31 +99,38 @@ public class BulkProcessorApi {
 
     private static List<Person> javaProgrammers = new ArrayList<>() {
         {
-            add(new Person("Elsdon", "Jaycob", "Java programmer", "male", 43, 2000));
-            add(new Person("Tamsen", "Brittany", "Java programmer", "female", 23, 1500));
-            add(new Person("Floyd", "Donny", "Java programmer", "male", 33, 1800));
-            add(new Person("Sindy", "Jonie", "Java programmer", "female", 32, 1600));
-            add(new Person("Vere", "Hervey", "Java programmer", "male", 22, 1200));
-            add(new Person("Maude", "Jaimie", "Java programmer", "female", 27, 1900));
-            add(new Person("Shawn", "Randall", "Java programmer", "male", 30, 2300));
-            add(new Person("Jayden", "Corrina", "Java programmer", "female", 35, 1700));
-            add(new Person("Palmer", "Dene", "Java programmer", "male", 33, 2000));
-            add(new Person("Addison", "Pam", "Java programmer", "female", 34, 1300));
+            add(new Person("Elsdon", "Jaycob", "Java programmer", "male", 43, 2000, "this is a good gay"));
+            add(new Person("Tamsen", "Brittany", "Java programmer", "female", 23, 1500, "You can use the term query to find d"));
+            add(new Person("Floyd", "Donny", "Java programmer", "male", 33, 1800, " Elasticsearch changes the values of text fi"));
+            add(new Person("Sindy", "Jonie", "Java programmer", "female", 32, 1600, "including whitespace and capitalization"));
+            add(new Person("Vere", "Hervey", "Java programmer", "male", 22, 1200, "Boost values are relative to the default value"));
+            add(new Person("Maude", "Jaimie", "Java programmer", "female", 27, 1900, "decreases the relevance score"));
+            add(new Person("Shawn", "Randall", "Java programmer", "male", 30, 2300, " A value greater than 1.0 increases the relevance score"));
+            add(new Person("Jayden", "Corrina", "Java programmer", "female", 35, 1700, "To better search text fields, the match query also analyzes your provided search term before performing a search"));
+            add(new Person("Palmer", "Dene", "Java programmer", "male", 33, 2000, "This means the match query can search text fields for analyzed tokens rather than an exact term."));
+            add(new Person("Addison", "Pam", "Java programmer", "female", 34, 1300, "The term query does not analyze the search term."));
         }
     };
 
     private static List<Person> phpProgrammers = new ArrayList<>() {
         {
-            add(new Person("Jarrod", "Pace", "PHP programmer", "male", 34, 1550));
-            add(new Person("Clarette", "Cicely", "PHP programmer", "female", 23, 1200));
-            add(new Person("Victor", "Channing", "PHP programmer", "male", 32, 1600));
-            add(new Person("Tori", "Sheryl", "PHP programmer", "female", 21, 1000));
-            add(new Person("Osborne", "Shad", "PHP programmer", "male", 32, 1100));
-            add(new Person("Rosalind", "Layla", "PHP programmer", "female", 25, 1300));
-            add(new Person("Fraser", "Hewie", "PHP programmer", "male", 36, 1100));
-            add(new Person("Quinn", "Tamara", "PHP programmer", "female", 21, 1000));
-            add(new Person("Alvin", "Lance", "PHP programmer", "male", 38, 1600));
-            add(new Person("Evonne", "Shari", "PHP programmer", "female", 40, 1800));
+            add(new Person("Jarrod", "Pace", "PHP programmer", "male", 34, 1550, "this is a good gay"));
+            add(new Person("Clarette", "Cicely", "PHP programmer", "female", 23, 1200, "You can use the term query to find d"));
+            add(new Person("Victor", "Channing", "PHP programmer", "male", 32, 1600, " Elasticsearch changes the values of text fi"));
+            add(new Person("Tori", "Sheryl", "PHP programmer", "female", 21, 1200, "including whitespace and capitalization"));
+            add(new Person("Osborne", "Shad", "PHP programmer", "male", 32, 1100, "Boost values are relative to the default value"));
+
+            add(new Person("Rosalind", "Layla", "PHP programmer", "female", 25, 1300, "decreases the relevance score"));
+            add(new Person("Fraser", "Hewie", "PHP programmer", "male", 36, 1200, " A value greater than 1.0 increases the relevance score"));
+            add(new Person("Quinn", "Tamara", "PHP programmer", "female", 21, 1300, "To better search text fields, the match query also analyzes your provided search term before performing a search"));
+            add(new Person("Alvin", "Lance", "PHP programmer", "male", 38, 1600, "This means the match query can search text fields for analyzed tokens rather than an exact term."));
+            add(new Person("Evonne", "Shari", "PHP programmer", "female", 30, 1400, "The term query does not analyze the search term."));
+
+            add(new Person("James", "Lucy", "PHP programmer", "male", 41, 1800, "The term query does not analyze the search term."));
+            add(new Person("Luis", "Lily", "PHP programmer", "female", 23, 1500, "This means the match query can search text fields for analyzed tokens rather than an exact term."));
+            add(new Person("Lyrn", "Andy", "PHP programmer", "female", 45, 1600, "To better search text fields, the match query also analyzes your provided search term before performing a search"));
+            add(new Person("Jordon", "Michile", "PHP programmer", "male", 32, 1800, " A value greater than 1.0 increases the relevance score"));
+            add(new Person("Maggie", "Brussel", "PHP programmer", "female", 40, 1600, "decreases the relevance score"));
         }
     };
 
@@ -131,8 +138,8 @@ public class BulkProcessorApi {
         BulkProcessor bulkProcessor = BulkProcessor.builder((bulkRequest, bulkResponseActionListener) ->
                 client.bulkAsync(bulkRequest, RequestOptions.DEFAULT, bulkResponseActionListener), listener).build();
         for (int i = 1; i <= javaProgrammers.size(); i++) {
-            IndexRequest indexRequest = new IndexRequest("person", "java", String.valueOf(i));
-            indexRequest.source(JSON.toJSONString(javaProgrammers.get(i - 1)), XContentType.JSON);
+            IndexRequest indexRequest = new IndexRequest("person", "php", String.valueOf(i));
+            indexRequest.source(JSON.toJSONString(phpProgrammers.get(i - 1)), XContentType.JSON);
             bulkProcessor.add(indexRequest);
         }
         bulkProcessor.awaitClose(10L, TimeUnit.SECONDS);
