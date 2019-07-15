@@ -19,7 +19,10 @@ import java.util.concurrent.*;
 public class ThreadPool extends AbstractThreadTestTemplate {
 
     public static void main(String[] args) {
-
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.schedule(() -> System.out.println("异步线程打印信息"), 10, TimeUnit.SECONDS);
+        scheduledExecutorService.shutdown();
+        System.out.println("主线程打印信息");
     }
 
     /**
