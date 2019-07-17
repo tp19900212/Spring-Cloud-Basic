@@ -340,11 +340,11 @@ public class LoghubUtil {
 //        -Dloghub.accessKeyId=LTAIjGZl6C3VCSrv \
 //        -Dloghub.accessKey=jodNX1Tl70qcAndqcC23teCOAbJU2E \
 //        -Dloghub.source=$LOCAL_IP_ADDR \
-        String projectName = "weierai";
-        String logstore = "ai_online";
-        String accessKey = "jodNX1Tl70qcAndqcC23teCOAbJU2E";
-        String accessKeyId = "LTAIjGZl6C3VCSrv";
-        String endpoint = "cn-hangzhou-vpc.log.aliyuncs.com";
+        String projectName = "";
+        String logstore = "";
+        String accessKey = "";
+        String accessKeyId = "";
+        String endpoint = "";
         LoghubUtil loghubUtil = new LoghubUtil(accessKey, accessKeyId, endpoint, logstore, projectName, "");
         List<QueriedLog> queriedLogList = loghubUtil.listLogs("BusinessExecutor error", "",
                 Long.valueOf(System.currentTimeMillis() / 1000 - 60 * 60 * 24).intValue(),
