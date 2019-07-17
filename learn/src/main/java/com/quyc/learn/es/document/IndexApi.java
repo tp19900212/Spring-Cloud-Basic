@@ -7,13 +7,17 @@ import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.replication.ReplicationResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
 import java.util.Date;
@@ -33,8 +37,9 @@ public class IndexApi {
 //        index();
 //        index2();
 //        index3();
-        index4();
+//        index4();
 //        indexWithSameDoc();
+        searchDate();
     }
 
     /**
@@ -142,15 +147,35 @@ public class IndexApi {
         client.close();
     }
 
+    /**
+     * 使用字符串保存时间不会再es中进行时区转换，若使用Date类型保存时间，es会将该时间转换为格林尼治时间保存
+     *
+     * @throws IOException
+     */
     public static void index4() throws IOException {
         //第四种方式: source -> key-pairs
-        IndexRequest indexRequest = new IndexRequest("posts", "doc", "4")
+        IndexRequest indexRequest = new IndexRequest("posts", "_doc", "4")
                 .source("user", "ddd",
-                        "postDate", new Date(),
+                        "postDate", "2019-07-21 17:24:59",
                         "message", "trying out Elasticsearch"
                 );
         IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
         client.close();
+    }
+
+    /**
+     * 使用字符串查询时间不会在es中进行时区转换，若使用Date类型保存时间，es会将该时间转换为格林尼治时间保存
+     *
+     * @throws IOException
+     */
+    public static void searchDate() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("posts");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.query(QueryBuilders.rangeQuery("postDate").gte("2019-07-17 10:24:59"));
+        searchSourceBuilder.query(QueryBuilders.rangeQuery("postDate").gte(new Date()));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest);
+        System.out.println("search = " + search);
     }
 
     public static void index5WithException() {

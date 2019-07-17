@@ -22,7 +22,9 @@ public class SearchScrollApi {
     private static RestHighLevelClient client = EsClientUtil.getClient();
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        searchScroll();
+//        searchScroll();
+        searchScrollWithFromSize();
+//        test1();
     }
 
     public static void searchScroll() throws IOException, InterruptedException {
@@ -57,5 +59,47 @@ public class SearchScrollApi {
         System.out.println("succeeded = " + succeeded);
     }
 
+    public static void searchScrollWithFromSize() throws IOException, InterruptedException {
+        // 设置时效
+        Scroll scroll = new Scroll(TimeValue.timeValueSeconds(5));
+        SearchRequest searchRequest = new SearchRequest("buyer_portrait_calculate");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        searchSourceBuilder.from(100);
+        searchSourceBuilder.size(100);
+        searchRequest.source(searchSourceBuilder);
+        searchRequest.scroll(scroll);
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+        // 获取scrollId，后续搜索根据这个id进行搜索
+        String scrollId = searchResponse.getScrollId();
+        System.out.println("scrollId = " + scrollId);
+        SearchHit[] hits = searchResponse.getHits().getHits();
+        // 循环搜索，直到搜索结束
+        while (hits != null && hits.length > 0) {
+            SearchScrollRequest scrollRequest = new SearchScrollRequest(scrollId);
+            scrollRequest.scroll(scroll);
+            SearchResponse searchScrollResponse = client.scroll(scrollRequest, RequestOptions.DEFAULT);
+            scrollId = searchScrollResponse.getScrollId();
+            System.out.println("scrollId = " + scrollId);
+            hits = searchScrollResponse.getHits().getHits();
+            System.out.println("hits.length = " + hits.length);
+        }
+        // 清理scroll上下文，若不及时清理会在时效到期自动清除
+        ClearScrollRequest clearScrollRequest = new ClearScrollRequest();
+        clearScrollRequest.addScrollId(scrollId);
+        ClearScrollResponse clearScrollResponse = client.clearScroll(clearScrollRequest, RequestOptions.DEFAULT);
+        boolean succeeded = clearScrollResponse.isSucceeded();
+        System.out.println("succeeded = " + succeeded);
+    }
+
+    public static void test1() throws IOException {
+        SearchRequest searchRequest = new SearchRequest("buyer_portrait_calculate");
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.from(100001);
+        searchSourceBuilder.size(10);
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse search = client.search(searchRequest);
+        System.out.println("search = " + search);
+    }
 
 }
