@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 /**
  * @author quyuanchao
  * @date 2019/6/20 22:58
- * <p>Title: 测试 ThreadPool</p>
+ * <p>Title: 测试 threadpool</p>
  * <p>Description: </p>
  */
 @Slf4j
