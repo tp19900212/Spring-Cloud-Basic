@@ -2,7 +2,7 @@ package com.quyc.learn.es.document;
 
 import com.alibaba.fastjson.JSON;
 import com.quyc.learn.es.EsClientUtil;
-import com.quyc.learn.es.Person;
+import com.quyc.learn.es.entity.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.bulk.BackoffPolicy;

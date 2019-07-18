@@ -1,4 +1,4 @@
-package com.quyc.learn.es;
+package com.quyc.learn.es.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
