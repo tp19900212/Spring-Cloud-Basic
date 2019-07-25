@@ -10,8 +10,14 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.get.GetResult;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.UpdateByQueryRequest;
+import org.elasticsearch.script.Script;
+import org.elasticsearch.script.ScriptType;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +31,8 @@ public class UpdateApi {
     private static RestHighLevelClient client = EsClientUtil.getClient();
 
     public static void main(String[] args) throws IOException {
-        update();
+//        update();
+        updateByQuery();
     }
 
     public static void update() throws IOException {
@@ -82,5 +89,19 @@ public class UpdateApi {
         }
 
     }
+
+    public static void updateByQuery() throws IOException {
+        UpdateByQueryRequest updateByQueryRequest = new UpdateByQueryRequest("person");
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("desc", "this is another answer");
+        jsonMap.put("firstName", "andy007");
+        jsonMap.put("gender", "male");
+        updateByQueryRequest.setQuery(QueryBuilders.termQuery("firstName.keyword","Quinn"));
+        updateByQueryRequest.setScript(new Script(ScriptType.INLINE, "painless",
+                "ctx._source.firstName='andy007'", Collections.emptyMap()));
+        BulkByScrollResponse response = client.updateByQuery(updateByQueryRequest, RequestOptions.DEFAULT);
+        System.out.println("response = " + response);
+    }
+
 
 }
