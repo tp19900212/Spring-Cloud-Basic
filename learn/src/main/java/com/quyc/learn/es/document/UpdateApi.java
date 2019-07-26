@@ -17,7 +17,6 @@ import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,13 +91,12 @@ public class UpdateApi {
 
     public static void updateByQuery() throws IOException {
         UpdateByQueryRequest updateByQueryRequest = new UpdateByQueryRequest("person");
-        Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("desc", "this is another answer");
-        jsonMap.put("firstName", "andy007");
-        jsonMap.put("gender", "male");
-        updateByQueryRequest.setQuery(QueryBuilders.termQuery("firstName.keyword","Quinn"));
+        updateByQueryRequest.setQuery(QueryBuilders.termQuery("firstName.keyword","andy008"));
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("firstName", "andy100");
+        map.put("salary", 1100);
         updateByQueryRequest.setScript(new Script(ScriptType.INLINE, "painless",
-                "ctx._source.firstName='andy007'", Collections.emptyMap()));
+                "ctx._source.firstName=params.firstName;ctx._source.salary=params.salary", map));
         BulkByScrollResponse response = client.updateByQuery(updateByQueryRequest, RequestOptions.DEFAULT);
         System.out.println("response = " + response);
     }
