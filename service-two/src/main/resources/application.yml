@@ -13,9 +13,18 @@ spring:
     admin:
       client:
         url: http://localhost:8200
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+#  level:
+#    com:
+#      example:
+#        mapper: debug
 management:
   endpoints:
     web:
@@ -33,4 +42,5 @@ info:
   app:
     name: ${spring.application.name}
     version: @version@
-
+mybatis:
+  mapper-locations: classpath:com/quyc/servicetwo/*/*.xml

@@ -17,6 +17,14 @@
         <java.version>11</java.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.quyc</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

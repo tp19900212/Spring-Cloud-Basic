@@ -13,6 +13,8 @@ spring:
     admin:
       client:
         url: http://localhost:8200
+  main:
+    allow-bean-definition-overriding: true
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'

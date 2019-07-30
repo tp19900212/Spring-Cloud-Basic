@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quyc.servicetwo.user.dao.UserDao">
+
+
+    <sql id="userColumns">
+	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+		a.id AS "id",
+		a.name AS "name",
+		a.age AS "age",
+		a.email AS "email",
+		a.address AS "address",
+		a.password AS "password",
+		a.user_Id AS "userId",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.feature AS "feature",
+		a.flag AS "flag",
+		a.phone AS "phone"
+	</sql>
+
+    <sql id="userJoins">
+    </sql>
+
+    <select id="getUserById" resultType="com.quyc.common.model.user.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user a
+        <include refid="userJoins"/>
+        WHERE a.id = #{id} and flag=#{flag}
+    </select>
+
+    <select id="getTotalCount" resultType="Integer" parameterType="com.alibaba.fastjson.JSONObject">
+        SELECT
+        count(*) as count
+        FROM user a
+        <include refid="userJoins"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND a.user_Id = #{userId}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND a.phone = #{phone}
+            </if>
+            AND flag=#{flag}
+        </where>
+    </select>
+
+    <select id="getList" resultType="com.quyc.common.model.user.User" parameterType="com.alibaba.fastjson.JSONObject">
+        SELECT
+        <include refid="userColumns"/>
+        FROM
+        (SELECT id from user t
+        <where>
+
+            <if test="name != null and name != ''">
+                AND t.name = #{name}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND t.user_Id = #{userId}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND t.phone = #{phone}
+            </if>
+            AND flag=#{flag}
+        </where>
+        limit #{startIndex},#{pageSize}) b inner join
+        user a on b.id=a.id
+    </select>
+
+    <select id="getUserList" resultType="com.quyc.common.model.user.User"
+            parameterType="com.quyc.common.model.user.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM (SELECT id from user t
+        <where>
+            <if test="name != null and name != ''">
+                AND t.name = #{name}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND t.user_Id = #{userId}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND t.phone = #{phone}
+            </if>
+            AND flag=#{flag}
+        </where>
+        ) b inner join user a on b.id=a.id
+    </select>
+
+    <select id="getSignleUser" resultType="com.quyc.common.model.user.User"
+            parameterType="com.quyc.common.model.user.User">
+        SELECT
+        <include refid="userColumns"/>
+        FROM
+        user a
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND a.user_Id = #{userId}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND a.phone = #{phone}
+            </if>
+            AND flag=#{flag}
+        </where>
+        limit 1
+    </select>
+
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO user(
+        <if test="id != null">
+            id,
+        </if>
+        <if test="name != null">
+            name,
+        </if>
+        <if test="age != null">
+            age,
+        </if>
+        <if test="email != null">
+            email,
+        </if>
+        <if test="address != null">
+            address,
+        </if>
+        <if test="password != null">
+            password,
+        </if>
+        <if test="userId != null">
+            user_Id,
+        </if>
+        <if test="updateDate != null">
+            update_date,
+        </if>
+        <if test="feature != null">
+            feature,
+        </if>
+        <if test="flag != null">
+            flag,
+        </if>
+        <if test="phone != null">
+            phone,
+        </if>
+        create_date
+        ) VALUES (
+        <if test="id != null">
+            #{id},
+        </if>
+        <if test="name != null">
+            #{name},
+        </if>
+        <if test="age != null">
+            #{age},
+        </if>
+        <if test="email != null">
+            #{email},
+        </if>
+        <if test="address != null">
+            #{address},
+        </if>
+        <if test="password != null">
+            #{password},
+        </if>
+        <if test="userId != null">
+            #{userId},
+        </if>
+        <if test="updateDate != null">
+            #{updateDate},
+        </if>
+        <if test="feature != null">
+            #{feature},
+        </if>
+        <if test="flag != null">
+            #{flag},
+        </if>
+        <if test="phone != null">
+            #{phone},
+        </if>
+        #{createDate}
+        )
+    </insert>
+
+    <insert id="addTrainRecordBatch" useGeneratedKeys="true" parameterType="java.util.List">
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO user(
+        id,
+        name,
+        age,
+        email,
+        address,
+        password,
+        user_Id,
+        update_date,
+        feature,
+        flag,
+        phone,
+        create_date
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.age},
+            #{item.email},
+            #{item.address},
+            #{item.password},
+            #{item.userId},
+            #{item.updateDate},
+            #{item.feature},
+            #{item.flag},
+            #{item.phone},
+            #{item.createDate}
+            )
+        </foreach>
+    </insert>
+    <update id="updateById">
+        UPDATE user SET
+        <if test="id != null ">
+            id = #{id},
+        </if>
+        <if test="name != null ">
+            name = #{name},
+        </if>
+        <if test="age != null ">
+            age = #{age},
+        </if>
+        <if test="email != null ">
+            email = #{email},
+        </if>
+        <if test="address != null ">
+            address = #{address},
+        </if>
+        <if test="password != null ">
+            password = #{password},
+        </if>
+        <if test="userId != null ">
+            user_Id = #{userId},
+        </if>
+        <if test="createDate != null ">
+            create_date = #{createDate},
+        </if>
+        <if test="feature != null ">
+            feature = #{feature},
+        </if>
+        <if test="flag != null ">
+            flag = #{flag},
+        </if>
+        <if test="phone != null ">
+            phone = #{phone},
+        </if>
+        update_date = #{updateDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+	UPDATE user SET
+	flag = -1
+		WHERE id = #{id}
+	</update>
+</mapper>

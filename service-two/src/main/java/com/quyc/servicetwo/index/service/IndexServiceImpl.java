@@ -1,4 +1,4 @@
-package com.quyc.servicetwo.controller;
+package com.quyc.servicetwo.index.service;
 
 import com.quyc.serviceone.spi.IndexService;
 import lombok.extern.slf4j.Slf4j;
