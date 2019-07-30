@@ -4,8 +4,8 @@
 
 
     <sql id="userColumns">
-	   str_to_date(a.CREATE_TIME, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
-	   str_to_date(a.UPDATE_TIME, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
+	   str_to_date(a.create_date, '%Y-%m-%d %H:%i:%s') AS "createtimestr",
+	   str_to_date(a.update_date, '%Y-%m-%d %H:%i:%s') AS "updatetimestr",
 		a.id AS "id",
 		a.name AS "name",
 		a.age AS "age",
