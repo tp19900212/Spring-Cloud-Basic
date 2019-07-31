@@ -76,7 +76,7 @@ public interface UserDao {
      * @param map
      * @return
      */
-    public User getSignleUser(User user);
+    public User getSingleUser(User user);
 
     /**
      * 获取分页记录总数

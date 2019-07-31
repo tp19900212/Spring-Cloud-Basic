@@ -15,7 +15,7 @@ public class DemoTableShardingAlgorithm implements PreciseShardingAlgorithm<Long
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<Long> preciseShardingValue) {
         for (String each : collection) {
-            if (each.endsWith(Long.parseLong(preciseShardingValue.getValue().toString()) % 2 + "")) {
+            if (each.endsWith(preciseShardingValue.getValue() % 2 + "")) {
                 return each;
             }
         }

@@ -92,7 +92,7 @@
         ) b inner join user a on b.id=a.id
     </select>
 
-    <select id="getSignleUser" resultType="com.quyc.common.model.user.User"
+    <select id="getSingleUser" resultType="com.quyc.common.model.user.User"
             parameterType="com.quyc.common.model.user.User">
         SELECT
         <include refid="userColumns"/>

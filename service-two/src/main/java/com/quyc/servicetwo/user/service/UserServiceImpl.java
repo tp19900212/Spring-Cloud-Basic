@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Service(用户表)
@@ -110,6 +111,11 @@ public class UserServiceImpl {
         String parms = JSON.toJSONString(user);
         List<User> list = null;
         logger.info("getUser(获取用户表单条数据-服务) 开始 parms={}", parms);
+        try {
+            TimeUnit.SECONDS.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (user == null) {
             return ret;
         }

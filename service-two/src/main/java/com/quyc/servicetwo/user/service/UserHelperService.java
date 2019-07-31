@@ -81,7 +81,7 @@ public class UserHelperService {
      * @author quyc
      */
     public User getSignleUser(User user) {
-        return userDao.getSignleUser(user);
+        return userDao.getSingleUser(user);
     }
 
     /**
