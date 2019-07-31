@@ -13,6 +13,7 @@ spring:
     admin:
       client:
         url: http://localhost:8200
+# zuul config -> ZuulProperties
 zuul:
   routes:
     api-one:
@@ -21,6 +22,7 @@ zuul:
     api-two:
       path: /api-two/**
       serviceId: api-two
+  retryable: false
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
@@ -41,26 +43,23 @@ info:
   app:
     name: ${spring.application.name}
     version: @version@
-# 配置ribbon 配置下列值并非ribbon get set 属性，因此鼠标点击无用，但是ribbon会自动加载以下信息
 ribbon:
-#  OkToRetryOnAllOperations: false  # 是否所有操作都进行重试
-#  retryable: false # 是否开启重试功能
-#  MaxAutoRetries: 0 # 同一个Server重试的次数(除去首次)
-#  MaxAutoRetriesNextServer: 0 # 切换相同Server的次数
-#  ConnectTimeout: 1000
-#  ReadTimeout: 20000 # ribbon 读取返回信息的超时时间，值范围30000-300000
+  retryable: false
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+  ConnectTimeout: 1000
+  ReadTimeout: 15000
   http:
     client:
-      enabled: false # okhttp替换httpclient OkHttp 会使用连接池来复用连接以提高效率。OkHttp 提供了对 GZIP 的默认支持来降低传输内容的大小。OkHttp 也提供了对 HTTP 响应的缓存机制，可以避免不必要的网络请求
+      enabled: false
   okhttp:
-    enabled: true # okhttp替换httpclient OkHttp 会使用连接池来复用连接以提高效率。OkHttp 提供了对 GZIP 的默认支持来降低传输内容的大小。OkHttp 也提供了对 HTTP 响应的缓存机制，可以避免不必要的网络请求
-# timeout config
+    enabled: true
 hystrix:
   command:
     default:
       execution:
         timeout:
-          enabled: true # 开启hystrix 熔断。
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 25000 #zuul 配置的hystrix 熔断时间，返回时间超过这个时间并不会立即返回，而是等到请求返回或超过ribbon的返回时间时触发熔断器。  # 即使请求数据返回，但是超过熔断超时时间依然是触发熔断，而不是返回数据。
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 12000 # 此处超时后不会立刻返回，而是等ribbon.ReadTimeout超时后返回，不过即便此时返回数据也只会返回超时信息

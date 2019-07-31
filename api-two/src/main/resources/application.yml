@@ -33,41 +33,25 @@ feign:
     enabled: true
   httpclient:
     enabled: true
-    connection-timeout: 10000
-  client:
-    config:
-      default:
-        connectTimeout: 500
-        readTimeout: 500
-        loggerLevel: full
-#        errorDecoder: com.example.SimpleErrorDecoder
-#        retryer: com.example.SimpleRetryer
-#        requestInterceptors:
-#          - com.example.FooRequestInterceptor
-#          - com.example.BarRequestInterceptor
-#        decode404: false
-#        encoder: com.example.SimpleEncoder
-#        decoder: com.example.SimpleDecoder
-#        contract: com.example.SimpleContract
 
 info:
   app:
     name: ${spring.application.name}
     version: @version@
-# 配置ribbon 配置下列值并非ribbon get set 属性，因此鼠标点击无用，但是ribbon会自动加载以下信息
-#ribbon:
-#  OkToRetryOnAllOperations: false  # 是否所有操作都进行重试
-#  retryable: false #是否开启重试功能
-#  MaxAutoRetries: 0 #同一个Server重试的次数(除去首次)
-#  MaxAutoRetriesNextServer: 0 #切换相同Server的次数
-#  ConnectTimeout: 2000
-#  ReadTimeout: 20000 # ribbon 读取返回信息的超时时间，值范围30000-300000
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        timeout:
-#          enabled: true # 开启hystrix 熔断。
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 5000 #zuul 配置的hyst
+# ribbon config -> CommonClientConfigKey,DefaultClientConfigImpl
+ribbon:
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+  ConnectTimeout: 2000
+  ReadTimeout: 10000
+  ServerListRefreshInterval: 1
+# hystrix config -> https://github.com/Netflix/Hystrix/wiki/Configuration#execution.timeout.enabled
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # 此处超时时间取ribbon.ReadTimeout和timeoutInMilliseconds之间的最小值，超时立刻返回
