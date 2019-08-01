@@ -2,7 +2,6 @@ package com.quyc.gateway.config;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -19,7 +18,7 @@ public class Routes {
      * @param builder the builder
      * @return the route locator
      */
-    @Bean
+//    @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
         String apiOne = "http://localhost:8182/";
         // localhost:8180/index/gateway -> localhost:8182:/index/gateway

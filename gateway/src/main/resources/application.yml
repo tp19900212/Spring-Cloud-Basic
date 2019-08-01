@@ -19,6 +19,41 @@ spring:
 #        url: http://localhost:8200
   main:
     allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      routes:
+        # 基于时间的路由
+#        - id: after_route
+#          uri: http://localhost:8182/
+           # 此处会被解析成PredicateDefinition对象 （name =After ，args= 2017-01-20T17:42:47.789-07:00[America/Denver]）
+           # After这个配置，遵循的契约大于配置的思想，它实际被AfterRoutePredicateFactory这个类所处理，这个After就是指定了它的Gateway web handler类为AfterRoutePredicateFactory
+#          predicates:
+#            - After=2019-08-01T18:10:08.436089700+08:00[Asia/Shanghai]
+        # 基于Header的路由
+#        - id: header_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Header=X-Request-Id,\d+
+        # 基于Cookie的路由
+#        - id: cookie_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Cookie=name,route
+        # 基于Method的路由
+#        - id: method_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Method=GET
+        # 基于Path的路由
+#        - id: path_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Path=/api-one/{segment}
+        # 基于Query的路由
+        - id: query_route
+          uri: http://localhost:8182/
+          predicates:
+            - Query=foo,a
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
