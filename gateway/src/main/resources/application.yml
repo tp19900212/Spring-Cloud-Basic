@@ -48,12 +48,17 @@ spring:
 #        - id: path_route
 #          uri: http://localhost:8182/
 #          predicates:
-#            - Path=/api-one/{segment}
+#            - Path=/api-one/**
+#          filters:
+            # localhost:8180/api-one/fallback -> localhost:8182/fallback
+#            - RewritePath=/api-one/(?<segment>.*),/$\{segment}
         # 基于Query的路由
-        - id: query_route
-          uri: http://localhost:8182/
-          predicates:
-            - Query=foo,a
+#        - id: query_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Query=foo,a
+#          filters:
+#            - AddRequestHeader=X-Request-Foo,Bar # 为该请求添加header
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
