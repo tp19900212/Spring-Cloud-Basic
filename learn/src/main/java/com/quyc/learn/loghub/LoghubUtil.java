@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * loghub SDK封装工具类
  *
- * @author ywwl
+ * @author quyc
  */
 public class LoghubUtil {
 

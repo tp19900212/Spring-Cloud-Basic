@@ -81,8 +81,15 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <version>5.5.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.20.0-GA</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/resources/lib/javassist-3.20.0-GA.jar</systemPath>
         </dependency>
     </dependencies>
 
