@@ -25,4 +25,10 @@ public class IndexController {
         return indexService.index(name);
     }
 
+    @RequestMapping("gateway")
+    public String gateway() {
+        log.info("gateway");
+        return "this message comes from api-one";
+    }
+
 }

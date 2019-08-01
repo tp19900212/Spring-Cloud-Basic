@@ -25,6 +25,7 @@
         <module>service-one-spi</module>
         <module>service-two-spi</module>
         <!--        <module>zipkin</module>-->
+        <module>gateway</module>
     </modules>
 
     <properties>
