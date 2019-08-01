@@ -1,3 +1,7 @@
+info:
+  app:
+    name: ${spring.application.name}
+    version: @version@
 server:
   port: 8081
 eureka:
@@ -39,21 +43,14 @@ management:
 feign:
   hystrix:
     enabled: true
-info:
-  app:
-    name: ${spring.application.name}
-    version: @version@
+  httpclient:
+    enabled: true # 默认为true
 ribbon:
   retryable: false
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 0
   ConnectTimeout: 1000
   ReadTimeout: 15000
-  http:
-    client:
-      enabled: false
-  okhttp:
-    enabled: true
 hystrix:
   command:
     default:

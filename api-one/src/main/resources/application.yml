@@ -1,4 +1,7 @@
-# ==Tomcat配置==
+info:
+  app:
+    name: ${spring.application.name}
+    version: @version@
 server:
   port: 8182
 eureka:
@@ -30,7 +33,22 @@ management:
 feign:
   hystrix:
     enabled: true
-info:
-  app:
-    name: ${spring.application.name}
-    version: @version@
+  httpclient:
+    enabled: true # 默认为true
+# ribbon config -> CommonClientConfigKey,DefaultClientConfigImpl
+ribbon:
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+  ConnectTimeout: 2000
+  ReadTimeout: 10000
+  ServerListRefreshInterval: 1
+# hystrix config -> https://github.com/Netflix/Hystrix/wiki/Configuration
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # 此处超时时间取ribbon.ReadTimeout和timeoutInMilliseconds之间的最小值，超时立刻返回
