@@ -21,6 +21,13 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     gateway:
+      discovery:
+        locator:
+          # 表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router
+          # 此时方位地址为 localhost:8180/service-id/api-path
+          enabled: true
+          lower-case-service-id: true
+
       routes:
         # 基于时间的路由
 #        - id: after_route
@@ -45,15 +52,15 @@ spring:
 #          predicates:
 #            - Method=GET
         # 基于Path的路由
-        - id: path_route
-          uri: http://localhost:8182/
-          predicates:
-            - Path=/api-one/**
-          filters:
+#        - id: path_route
+#          uri: http://localhost:8182/
+#          predicates:
+#            - Path=/api-one/**
+#          filters:
 #             localhost:8180/api-one/fallback -> localhost:8182/fallback
-            - RewritePath=/api-one/,/
+#            - RewritePath=/api-one/,/
             # 使用自定义过滤器工厂
-            - RequestTime=false
+#            - RequestTime=false
         # 基于Query的路由
 #        - id: query_route
 #          uri: http://localhost:8182/
@@ -61,6 +68,12 @@ spring:
 #            - Query=foo,a
 #          filters:
 #            - AddRequestHeader=X-Request-Foo,Bar # 为该请求添加header
+        - id: api-one
+          uri: lb://api-one # 指向负载均衡的 api-one 地址
+          predicates:
+            - Path=/one/**
+          filters:
+            - StripPrefix=1 # 路径替换 localhost:8180/one/** -> localhost:8180/**
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
