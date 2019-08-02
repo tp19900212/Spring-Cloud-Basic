@@ -1,6 +1,7 @@
 package com.quyc.gateway.config;
 
 import com.quyc.gateway.filter.RequestTimeGatewayFilterFactory;
+import com.quyc.gateway.filter.global.TokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,9 +13,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
+    /**
+     * 注入自定义过滤器
+     *
+     * @return the request time gateway filter factory
+     */
     @Bean
     public RequestTimeGatewayFilterFactory requestTimeGatewayFilterFactory() {
         return new RequestTimeGatewayFilterFactory();
+    }
+
+    /**
+     * 注入自定义全局过滤器
+     *
+     * @return the token filter
+     */
+    @Bean
+    public TokenFilter tokenFilter() {
+        return new TokenFilter();
     }
 
 }
