@@ -4,7 +4,6 @@ import com.quyc.gateway.filter.RequestTimeFilter;
 import org.springframework.cloud.gateway.filter.factory.RewritePathGatewayFilterFactory;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -50,7 +49,7 @@ public class Routes {
      * @param builder the builder
      * @return the route locator
      */
-    @Bean
+//    @Bean
     public RouteLocator customFilterRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(predicateSpec -> predicateSpec
@@ -61,8 +60,8 @@ public class Routes {
                                 .filter(new RequestTimeFilter())
                                 // 使用 RewritePathGatewayFilterFactory
                                 .filter(new RewritePathGatewayFilterFactory().apply(config -> config
-                                        .setRegexp("/api-one/(?<segment>.*)")
-                                        .setReplacement("/$\\{segment}")))
+                                        .setRegexp("/api-one/")
+                                        .setReplacement("/")))
                                 // 添加返回信息
                                 .addResponseHeader("X-Response-Default-Foo", "Default-Bar"))
                         // 路由路径
@@ -72,5 +71,6 @@ public class Routes {
                         .id("requestTimeRouter"))
                 .build();
     }
+
 
 }

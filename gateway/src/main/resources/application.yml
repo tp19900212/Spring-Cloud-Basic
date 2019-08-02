@@ -45,13 +45,15 @@ spring:
 #          predicates:
 #            - Method=GET
         # 基于Path的路由
-#        - id: path_route
-#          uri: http://localhost:8182/
-#          predicates:
-#            - Path=/api-one/**
-#          filters:
-            # localhost:8180/api-one/fallback -> localhost:8182/fallback
-#            - RewritePath=/api-one/(?<segment>.*),/$\{segment}
+        - id: path_route
+          uri: http://localhost:8182/
+          predicates:
+            - Path=/api-one/**
+          filters:
+#             localhost:8180/api-one/fallback -> localhost:8182/fallback
+            - RewritePath=/api-one/,/
+            # 使用自定义过滤器工厂
+            - RequestTime=false
         # 基于Query的路由
 #        - id: query_route
 #          uri: http://localhost:8182/
