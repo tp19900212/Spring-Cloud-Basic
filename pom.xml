@@ -26,6 +26,7 @@
         <module>service-two-spi</module>
         <!--        <module>zipkin</module>-->
         <module>gateway</module>
+        <module>hystrix-dashboard</module>
     </modules>
 
     <properties>

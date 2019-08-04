@@ -21,7 +21,7 @@ public class IndexServiceImpl implements com.quyc.servicetwo.spi.IndexService {
     @Override
     public String index(String name) {
         log.info("index name={}", name);
-        return indexService.index(name);
+        return "this message comes from service-two " + name;
     }
 
 }

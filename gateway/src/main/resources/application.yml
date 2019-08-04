@@ -71,7 +71,13 @@ spring:
         - id: api-one
           uri: lb://api-one # 指向负载均衡的 api-one 地址
           predicates:
-            - Path=/one/**
+            - Path=/api-one/**
+          filters:
+            - StripPrefix=1 # 路径替换 localhost:8180/one/** -> localhost:8180/**
+        - id: api-two
+          uri: lb://api-two # 指向负载均衡的 api-one 地址
+          predicates:
+            - Path=/api-two/**
           filters:
             - StripPrefix=1 # 路径替换 localhost:8180/one/** -> localhost:8180/**
   redis:

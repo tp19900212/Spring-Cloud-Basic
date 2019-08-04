@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.quyc.serviceone.spi"})
+@EnableFeignClients(basePackages = {"com.quyc.serviceone.spi","com.quyc.servicetwo.spi"})
 @SpringBootApplication
 @EnableHystrix
 public class ApiOneApplication {

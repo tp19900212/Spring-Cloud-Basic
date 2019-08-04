@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * @author: andy
  * @create: 2019/6/3 19:22
@@ -18,17 +20,18 @@ public class IndexController {
 
     @Autowired
     private IndexService indexService;
-
+    @Resource
+    private com.quyc.servicetwo.spi.IndexService indexTwoService;
     @RequestMapping("")
     public String index(String name) {
         log.info("index name={}", name);
         return indexService.index(name);
     }
 
-    @RequestMapping("gateway")
-    public String gateway() {
-        log.info("gateway");
-        return "this message comes from api-one";
+    @RequestMapping("two")
+    public String two(String name) {
+        log.info("two name={}",name);
+        return indexTwoService.index(name);
     }
 
 }
