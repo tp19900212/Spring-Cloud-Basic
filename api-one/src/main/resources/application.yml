@@ -13,10 +13,11 @@ spring:
     name: api-one
   zipkin:
     base-url: http://localhost:8086
-  boot:
-    admin:
-      client:
-        url: http://localhost:8200
+   # 向springbootadmin注册，admin工程注册到eureka后可通过eureka获取服务，不需要再注册
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8200
   main:
     allow-bean-definition-overriding: true
 logging:

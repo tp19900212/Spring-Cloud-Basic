@@ -13,10 +13,7 @@ spring:
     name: api-two
   zipkin:
     base-url: http://localhost:8086
-  boot:
-    admin:
-      client:
-        url: http://localhost:8200
+
   main:
     allow-bean-definition-overriding: true
 logging:

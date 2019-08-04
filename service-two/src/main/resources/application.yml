@@ -13,10 +13,7 @@ spring:
     name: service-two
   zipkin:
     base-url: http://localhost:8086
-  boot:
-    admin:
-      client:
-        url: http://localhost:8200
+
 #  datasource:
 #    username: root
 #    password: 123456

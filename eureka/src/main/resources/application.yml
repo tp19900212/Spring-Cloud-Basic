@@ -12,6 +12,14 @@ eureka:
       defaultZone: http://localhost:8080/eureka/
   server:
     enableSelfPreservation: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
