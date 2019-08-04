@@ -74,6 +74,10 @@ spring:
             - Path=/one/**
           filters:
             - StripPrefix=1 # 路径替换 localhost:8180/one/** -> localhost:8180/**
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'

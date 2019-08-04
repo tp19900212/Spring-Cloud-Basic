@@ -33,4 +33,14 @@ public class BeanConfig {
         return new TokenFilter();
     }
 
+    /**
+     * 用于限流的键的解析器
+     *
+     * @return the host addr key resolver
+     */
+    @Bean
+    public HostAddrKeyResolver hostAddrKeyResolver() {
+        return new HostAddrKeyResolver();
+    }
+
 }
