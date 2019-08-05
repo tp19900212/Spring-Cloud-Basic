@@ -9,6 +9,7 @@
 - **服务监控：Spring Cloud Admin**
 - **链路追踪：Sleuth+Zipkin**
 - **数据库持久层：Mybatis+Sharding-JDBC**
+- **分布式配置中心：SpringCloudConfig**
 
 后续还会继续加入其他 SpringCloud 相关功能组件，敬请期待。
 
