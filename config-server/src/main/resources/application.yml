@@ -11,11 +11,20 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/quyc07/SpringCloudConfig.git
-          search-paths: springcloudbasic
+          uri: https://github.com/quyc07/SpringCloudConfig.git # git 仓库地址
+          search-paths: springcloudbasic # 配置仓库路径下的相对搜索位置，可以配置多个
 #          username:
 #          password:
-      label: master
+      label: master # git 分支
+
+#  URL与配置文件的映射关系
+#
+#  /{application}/{profile}[/{label}]
+#  /{application}-{profile}.yml
+#  /{label}/{application}-{profile}.yml
+#  /{application}-{profile}.properties
+#  /{label}/{application}-{profile}.properties
+
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'

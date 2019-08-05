@@ -1,19 +1,14 @@
-info:
-  app:
-    name: ${spring.application.name}
-#    version: @version@
-server:
-  port: 8184
 spring:
-  application:
-    name: config-client
   cloud:
     config:
-      label: master
-      profile: dev
       uri: http://localhost:8183/
 
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+#  A Spring Cloud application operates by creating a "bootstrap" context, which is a parent context for the main application.
+#  Out of the box it is responsible for loading configuration properties from the external sources,
+#  and also decrypting properties in the local external configuration files.
+#  The two contexts share an Environment which is the source of external properties for any Spring application.
+#  Bootstrap properties are added with high precedence, so they cannot be overridden by local configuration, by default.
+#
+#  The bootstrap context uses a different convention for locating external configuration than the main application context,
+#  so instead of application.yml (or .properties) you use bootstrap.yml, keeping the external configuration for bootstrap and main context nicely separate.
 
