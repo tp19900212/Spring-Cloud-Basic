@@ -26,4 +26,11 @@ public class IndexController {
         return indexService.index(name);
     }
 
+    @RequestMapping("sentinel")
+    // 指定该接口为sentinel监控接口
+//    @SentinelResource("sentinelApi")
+    public String sentinel(String name) {
+        return "hello " + name;
+    }
+
 }

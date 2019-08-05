@@ -13,9 +13,13 @@ spring:
     name: api-two
   zipkin:
     base-url: http://localhost:8086
-
   main:
     allow-bean-definition-overriding: true
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8380
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
@@ -30,8 +34,8 @@ management:
     shutdown:
       enabled: true
 feign:
-  hystrix:
-    enabled: true
+#  hystrix:
+#    enabled: true
   httpclient:
     enabled: true # 默认为true
 # ribbon config -> CommonClientConfigKey,DefaultClientConfigImpl
