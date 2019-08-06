@@ -55,3 +55,16 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000 # 此处超时时间取ribbon.ReadTimeout和timeoutInMilliseconds之间的最小值，超时立刻返回
+
+
+
+# ================ business config ================
+
+localconfig:
+  name: andy
+  age: 20
+  number:  ${random.int}
+  uuid: ${random.uuid}
+  max: ${random.int(10)}
+  value: ${random.value}
+  greeting: hi,i'm  ${localconfig.name}
