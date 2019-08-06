@@ -1,4 +1,4 @@
-package com.quyc.serviceone.controller;
+package com.quyc.serviceone.index.service;
 
 import com.quyc.serviceone.spi.IndexService;
 import org.slf4j.Logger;
