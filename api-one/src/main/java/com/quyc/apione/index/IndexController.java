@@ -1,7 +1,8 @@
-package com.quyc.apitwo.index.controller;
+package com.quyc.apione.index;
 
-import com.quyc.servicetwo.spi.IndexService;
+import com.quyc.serviceone.spi.IndexService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,20 +18,20 @@ import javax.annotation.Resource;
 @Slf4j
 public class IndexController {
 
-    @Resource
+    @Autowired
     private IndexService indexService;
-
+    @Resource
+    private com.quyc.servicetwo.spi.IndexService indexTwoService;
     @RequestMapping("")
     public String index(String name) {
         log.info("index name={}", name);
         return indexService.index(name);
     }
 
-    @RequestMapping("sentinel")
-    // 指定该接口为sentinel监控接口
-//    @SentinelResource("sentinelApi")
-    public String sentinel(String name) {
-        return "hello " + name;
+    @RequestMapping("two")
+    public String two(String name) {
+        log.info("two name={}",name);
+        return indexTwoService.index(name);
     }
 
 }

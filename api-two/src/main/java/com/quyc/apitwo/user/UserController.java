@@ -1,4 +1,4 @@
-package com.quyc.apitwo.user.controller;
+package com.quyc.apitwo.user;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
