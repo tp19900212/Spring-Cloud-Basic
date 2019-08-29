@@ -16,7 +16,7 @@ import java.util.Objects;
  * @create: 2019-08-27 23:36:37
  */
 @RestControllerAdvice
-public class MethodArgumentNotValidExceptionHandler {
+public class BindExceptionHandler {
 
     /**
      * 校验异常的全局捕获并组装返回信息

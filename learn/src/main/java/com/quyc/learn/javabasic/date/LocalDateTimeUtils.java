@@ -2,10 +2,7 @@ package com.quyc.learn.javabasic.date;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -120,6 +117,13 @@ public class LocalDateTimeUtils {
                 .withMinute(59)
                 .withSecond(59)
                 .withNano(999999999);
+    }
+
+    public static Date getCustomDate(Date date, int hours, int minute, int second) {
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return Date.from(localDateTime.withHour(hours).withMinute(minute).withSecond(second).atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public static void main(String[] args) {
