@@ -54,6 +54,7 @@ public class BoolSearch {
                 // should条件必须满足一个
                 .minimumShouldMatch(1);
         searchRequest.source(new SearchSourceBuilder().query(boolQueryBuilder));
+        System.out.println("searchRequest = " + searchRequest);
         SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
         System.out.println("search = " + search);
         List<Person> persons = EsClientUtil.getSearchResult(search, Person.class);

@@ -17,6 +17,7 @@ import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -66,8 +67,18 @@ public class BulkProcessorApi {
     public static void bulkProcessor() throws InterruptedException {
 
         // 构建BulkProcessor
+        // 异步创建
+//        BulkProcessor.Builder builder = BulkProcessor.builder((bulkRequest, bulkResponseActionListener)
+//                -> client.bulkAsync(bulkRequest, RequestOptions.DEFAULT, bulkResponseActionListener), listener);
+        // 同步创建
         BulkProcessor.Builder builder = BulkProcessor.builder((bulkRequest, bulkResponseActionListener)
-                -> client.bulkAsync(bulkRequest, RequestOptions.DEFAULT, bulkResponseActionListener), listener);
+                -> {
+            try {
+                client.bulk(bulkRequest, RequestOptions.DEFAULT);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }, listener);
         // 多少个操作之后刷新一个新的BulkRequest，默认1000，-1：disable
         builder.setBulkActions(500);
         // 多大数据量之后刷新一个新的BulkRequest，默认5M，-1：disable
