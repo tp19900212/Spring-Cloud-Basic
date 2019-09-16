@@ -2,9 +2,14 @@ server:
   port: 8086
 spring:
   application:
-    name: zipkin-server
+    name: zipkin-service
 management:
   metrics:
     web:
       server:
         auto-time-requests: false
+# 注册服务，客户端试用服务名寻找地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/

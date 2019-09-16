@@ -4,10 +4,10 @@ spring:
   application:
     name: admin
   zipkin:
-    base-url: http://localhost:8086
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+    base-url: http://zipkin-service/
+#logging:
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-B3-Sampled:-}] [%thread] %-5level %logger{50} - %msg%n'
 # 注册进eureka，通过eureka发现服务
 eureka:
   client:

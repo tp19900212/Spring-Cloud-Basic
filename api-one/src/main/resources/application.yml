@@ -12,7 +12,7 @@ spring:
   application:
     name: api-one
   zipkin:
-    base-url: http://localhost:8086
+    base-url: http://zipkin-service/
    # 向springbootadmin注册，admin工程注册到eureka后可通过eureka获取服务，不需要再注册
 #  boot:
 #    admin:
@@ -20,9 +20,9 @@ spring:
 #        url: http://localhost:8200
   main:
     allow-bean-definition-overriding: true
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+#logging:
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-B3-Sampled:-}] [%thread] %-5level %logger{50} - %msg%n'
 management:
   endpoints:
     web:

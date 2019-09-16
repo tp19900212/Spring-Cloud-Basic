@@ -12,7 +12,10 @@ spring:
   application:
     name: api-two
   zipkin:
-    base-url: http://localhost:8086
+    base-url: http://zipkin-service/
+  sleuth:
+    sampler:
+      probability: 1
   main:
     allow-bean-definition-overriding: true
   cloud:
@@ -20,9 +23,9 @@ spring:
       transport:
         port: 8719
         dashboard: localhost:8380
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+#logging:
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-B3-Sampled:-}] [%thread] %-5level %logger{50} - %msg%n'
 management:
   endpoints:
     web:

@@ -12,7 +12,11 @@ spring:
   application:
     name: zuul
   zipkin:
-    base-url: http://localhost:8086
+    # 通过服务名查找zipkin服务
+    base-url: http://zipkin-service/
+  sleuth:
+    sampler:
+      probability: 1
 
 # zuul config -> ZuulProperties
 zuul:
@@ -24,9 +28,9 @@ zuul:
       path: /api-two/**
       serviceId: api-two
   retryable: false
-logging:
-  pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-}] [%thread] %-5level %logger{50} - %msg%n'
+#logging:
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss SSS,GMT+8} [%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-B3-Sampled:-}] [%thread] %-5level %logger{50} - %msg%n'
 management:
   endpoints:
     web:
