@@ -1,5 +1,9 @@
 server:
   port: 8080
+# EurekaServer默认有两个缓存，一个是ReadWriteMap，另一个是ReadOnlyMap。有服务提供者注册服务或者维持心跳时时，会修改ReadWriteMap。
+# 当有服务调用者查询服务实例列表时，默认会从ReadOnlyMap读取（这个在原生Eureka可以配置，SpringCloud Eureka中不能配置，一定会启用ReadOnlyMap读取），
+# 这样可以减少ReadWriteMap读写锁的争用，增大吞吐量。EurekaServer定时把数据从ReadWriteMap更新到ReadOnlyMap中。
+# ReadWriteMap是一个Guava Cache，过期时间是可以配置的。
 eureka:
   instance:
     hostname: localhost
@@ -12,6 +16,9 @@ eureka:
       defaultZone: http://localhost:8080/eureka/
   server:
     enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000 # 每隔N毫秒扫描一次失效服务（缺省为60*1000ms）
+    response-cache-update-interval-ms: 2000 # 每隔1000毫秒将readWriteCacheMap刷新到readCacheMap，默认30s 注意，client读取的是readCacheMap
+    response-cache-auto-expiration-in-seconds: 2000 # 缓存readWriteCacheMap失效时间（默认180s），过期后从registry重新读取注册服务信息，registry是一个ConcurrentHashMap。
 management:
   endpoints:
     web:

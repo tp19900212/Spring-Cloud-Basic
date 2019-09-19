@@ -8,6 +8,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
+    registry-fetch-interval-seconds: 1 # 表示eureka client间隔多久去拉取服务注册信息，默认为30秒
+    instance-info-replication-interval-seconds: 2 # 更新实例信息的变化到Eureka服务端的间隔时间，单位为秒
+    initial-instance-info-replication-interval-seconds: 5 # 初始化实例信息到Eureka服务端的间隔时间，单位为秒
+  instance:
+    lease-expiration-duration-in-seconds: 3 # 服务过期时间，超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除，默认90s
+    lease-renewal-interval-in-seconds: 1 # 服务刷新时间，每隔这个时间会主动心跳一次，默认30s
 spring:
   application:
     name: service-two
