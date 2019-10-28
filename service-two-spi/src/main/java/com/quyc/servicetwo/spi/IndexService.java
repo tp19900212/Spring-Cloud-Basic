@@ -21,5 +21,5 @@ public interface IndexService {
      * @return
      */
     @RequestMapping("index/")
-    String index(@RequestParam("name") String name);
+    String index(@RequestParam("name") String name) throws InterruptedException;
 }

@@ -19,8 +19,9 @@ public class IndexServiceImpl implements com.quyc.servicetwo.spi.IndexService {
     private IndexService indexService;
 
     @Override
-    public String index(String name) {
+    public String index(String name) throws InterruptedException {
         log.info("index name={}", name);
+        Thread.sleep(500);
         return "this message comes from service-two " + name;
     }
 

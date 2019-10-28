@@ -41,19 +41,21 @@ public class UserServiceImpl {
      * @author quyc
      */
     @RequestMapping("getList")
-    public Partion getList(@RequestBody JSONObject json) {
+    public Partion getList(@RequestBody JSONObject json) throws InterruptedException {
         logger.info("getList(获取用户表带分页数据-服务) 开始 json={}", json);
-        if (json == null || json.size() < 1) {
-            return null;
-        }
-        int totalcount = userHelperService.getTotalCount(json);
-        List<User> list = null;
-        if (totalcount > 0) {
-            list = userDao.getList(json);
-        }
-        Partion pt = new Partion(json, list, totalcount);
-        logger.info("getList(获取用户表带分页数据-服务) 结束 ");
-        return pt;
+        Thread.sleep(500);
+        return null;
+//        if (json == null || json.size() < 1) {
+//            return null;
+//        }
+//        int totalcount = userHelperService.getTotalCount(json);
+//        List<User> list = null;
+//        if (totalcount > 0) {
+//            list = userDao.getList(json);
+//        }
+//        Partion pt = new Partion(json, list, totalcount);
+//        logger.info("getList(获取用户表带分页数据-服务) 结束 ");
+//        return pt;
     }
 
     /**

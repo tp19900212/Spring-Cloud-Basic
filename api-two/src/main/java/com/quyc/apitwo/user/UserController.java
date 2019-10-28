@@ -2,6 +2,7 @@ package com.quyc.apitwo.user;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.quyc.common.base.model.DataReturn;
 import com.quyc.common.base.model.Partion;
 import com.quyc.common.base.utils.StringUtils;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -34,13 +34,13 @@ public class UserController {
     /**
      * getList:(获取用户表分页查询接口)
      *
-     * @param request
      * @param parms
      * @return
      * @Author quyc
      */
     @RequestMapping("getList")
-    public DataReturn getList(HttpServletRequest request, String parms) {
+    @HystrixCommand(groupKey = "userService", threadPoolKey = "userThread")
+    public DataReturn getList(String parms) {
         DataReturn dataReturn = new DataReturn();
         log.info("getList:(获取用户表分页查询接口) 开始  parms={}", parms);
         if (StringUtils.isBlank(parms)) {
@@ -75,13 +75,13 @@ public class UserController {
     /**
      * getUserDetail:(查询用户表详情数据接口)
      *
-     * @param request
      * @param parms
      * @return
      * @Author quyc
      */
     @RequestMapping("getUserDetail")
-    public DataReturn getUserDetail(HttpServletRequest request, String parms) {
+    @HystrixCommand(groupKey = "userService", threadPoolKey = "userThread")
+    public DataReturn getUserDetail(String parms) {
         DataReturn dataReturn = new DataReturn();
         log.info("getUser:(查询用户表详情数据接口) 开始  parms={}", parms);
         if (StringUtils.isBlank(parms)) {
@@ -108,13 +108,12 @@ public class UserController {
     /**
      * save:(保存用户表数据接口)
      *
-     * @param request
      * @param parms
      * @return
      * @Author quyc
      */
     @RequestMapping(value = "save")
-    public DataReturn save(HttpServletRequest request, String parms) {
+    public DataReturn save(String parms) {
         DataReturn dataReturn = new DataReturn();
         log.info("save:(保存用户表数据接口) 开始  parms={}", parms);
         if (StringUtils.isBlank(parms)) {
