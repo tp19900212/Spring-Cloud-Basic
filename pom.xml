@@ -10,12 +10,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.quyc</groupId>
-    <artifactId>learn-parent</artifactId>
+    <artifactId>Spring-Cloud-Basic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>learn</module>
         <module>eureka</module>
         <module>zuul</module>
         <module>api-one</module>
