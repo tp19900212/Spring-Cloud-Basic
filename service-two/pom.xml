@@ -10,14 +10,8 @@
     <artifactId>service-two</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>service-two</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
-
-    <properties>
-        <service-one-spi.version>0.0.1-SNAPSHOT</service-one-spi.version>
-        <service-two-spi.version>0.0.1-SNAPSHOT</service-two-spi.version>
-        <mybatis.version>2.1.0</mybatis.version>
-        <mysql.version>5.1.47</mysql.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -32,40 +26,33 @@
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-one-spi</artifactId>
-            <version>${service-one-spi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-two-spi</artifactId>
-            <version>${service-two-spi.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
         </dependency>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>3.1.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.19</version>
         </dependency>
     </dependencies>
 

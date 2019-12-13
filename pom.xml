@@ -29,6 +29,7 @@
         <module>admin</module>
         <module>config-server</module>
         <module>config-client</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -36,6 +37,20 @@
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <zipkin.version>2.12.9</zipkin.version>
         <spring.boot.admin.version>2.1.5</spring.boot.admin.version>
+        <lombok.version>1.18.6</lombok.version>
+        <fastjson.version>1.2.57</fastjson.version>
+        <jaxb-impl.version>2.3.0</jaxb-impl.version>
+        <activation.version>1.1.1</activation.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <mybatis.version>2.1.0</mybatis.version>
+        <mysql.version>5.1.47</mysql.version>
+        <spring-cloud-starter-alibaba-sentinel.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
+        <sharding-jdbc-spring-boot-starter.version>3.1.0</sharding-jdbc-spring-boot-starter.version>
+        <druid.version>1.1.19</druid.version>
+        <!--二方包-->
+        <common.version>0.0.1-SNAPSHOT</common.version>
+        <service-one-spi.version>0.0.1-SNAPSHOT</service-one-spi.version>
+        <service-two-spi.version>0.0.1-SNAPSHOT</service-two-spi.version>
     </properties>
 
     <dependencies>
@@ -68,20 +83,17 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring.boot.admin.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.57</version>
         </dependency>
         <!-- 手动加载jaxb模块（java9之后不再加载该组件） -->
         <dependency>
@@ -91,26 +103,64 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <!--二方包-->
+            <dependency>
+                <groupId>com.quyc</groupId>
+                <artifactId>service-one-spi</artifactId>
+                <version>${service-one-spi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.quyc</groupId>
+                <artifactId>service-two-spi</artifactId>
+                <version>${service-two-spi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.quyc</groupId>
+                <artifactId>common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <!--二方包-->
+
+            <!--三方包-->
+            <dependency>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+                <version>${sharding-jdbc-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -118,6 +168,57 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring.boot.admin.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 手动加载jaxb模块（java9之后不再加载该组件） -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>${activation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-alibaba-sentinel -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${spring-cloud-starter-alibaba-sentinel.version}</version>
+            </dependency>
+            <!--三方包-->
         </dependencies>
     </dependencyManagement>
     <build>

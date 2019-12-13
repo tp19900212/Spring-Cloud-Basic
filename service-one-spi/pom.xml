@@ -10,12 +10,9 @@
     </parent>
 
     <artifactId>service-one-spi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${service-one-spi.version}</version>
     <name>service-one-spi</name>
-
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+    <packaging>jar</packaging>
 
     <build>
         <plugins>

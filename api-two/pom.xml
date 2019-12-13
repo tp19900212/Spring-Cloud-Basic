@@ -10,11 +10,8 @@
     <artifactId>api-two</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-two</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
-
-    <properties>
-        <service-two-spi.version>0.0.1-SNAPSHOT</service-two-spi.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -29,17 +26,14 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-            <version>0.9.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-two-spi</artifactId>
-            <version>${service-two-spi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

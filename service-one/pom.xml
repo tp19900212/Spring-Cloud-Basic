@@ -13,9 +13,6 @@
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
-    <properties>
-        <service-one-spi.version>0.0.1-SNAPSHOT</service-one-spi.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -29,7 +26,6 @@
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-one-spi</artifactId>
-            <version>${service-one-spi.version}</version>
         </dependency>
     </dependencies>
 

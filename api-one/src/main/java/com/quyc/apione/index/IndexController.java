@@ -29,7 +29,7 @@ public class IndexController {
     }
 
     @RequestMapping("two")
-    public String two(String name) {
+    public String two(String name) throws InterruptedException {
         log.info("two name={}",name);
         return indexTwoService.index(name);
     }

@@ -10,18 +10,14 @@
     </parent>
 
     <artifactId>service-two-spi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${service-two-spi.version}</version>
     <name>service-two-spi</name>
-
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

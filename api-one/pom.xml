@@ -13,11 +13,6 @@
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
-    <properties>
-        <service-one-spi.version>0.0.1-SNAPSHOT</service-one-spi.version>
-        <service-two-spi.version>0.0.1-SNAPSHOT</service-two-spi.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,12 +25,10 @@
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-one-spi</artifactId>
-            <version>${service-one-spi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.quyc</groupId>
             <artifactId>service-two-spi</artifactId>
-            <version>${service-two-spi.version}</version>
         </dependency>
     </dependencies>
 
