@@ -53,6 +53,7 @@
         <service-two-spi.version>0.0.1-SNAPSHOT</service-two-spi.version>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
